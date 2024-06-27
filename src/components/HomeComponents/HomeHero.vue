@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-200 bg-cover h-[550px] import-img">
+  <div class="bg-cover h-[550px] import-img">
     <div class="w-full h-full flex justify-center md:justify-end items-center px-8 lg:pe-16">
       <div class="w-[100%] md:w-[65%] lg:w-[50%] xl:w-[45%] h-fit bg-[#fff3e3]/90 p-7 pt-10 pr-10">
         <p class="font-semibold text-xs pb-2">New Arrival</p>

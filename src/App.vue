@@ -1,7 +1,7 @@
 <template>
   <NavbarComponent />
   <!-- <div class="px-5 md:px-20"> -->
-    <router-view />
+  <router-view />
   <!-- </div> -->
 </template>
 
