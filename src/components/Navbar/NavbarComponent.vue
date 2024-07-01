@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fixed sm:relative bg-white w-full z-10">
     <nav
       class="py-5 px-5 md:px-20 flex justify-between items-center shadow relative"
     >
@@ -10,7 +10,7 @@
 
       <div
         :class="isMenuOpen ? 'block' : 'hidden'"
-        class="h-screen top-0 left-0 bg-black/30 w-full fixed"
+        class="z-40 h-screen top-0 left-0 bg-black/30 lg:hidden w-full fixed"
         @click="toggleMenu"
       ></div>
 
@@ -18,7 +18,7 @@
         :class="
           isMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         "
-        class="fixed pt-6 lg:pt-0 left-0 top-0 w-[75%] lg:w-auto h-full lg:h-auto lg:relative transition-transform duration-300 bg-white flex-col flex lg:flex-row justify-between ps-5"
+        class="fixed z-50 pt-6 lg:pt-0 left-0 top-0 w-[75%] lg:w-auto h-full lg:h-auto lg:relative transition-transform duration-300 bg-white flex-col flex lg:flex-row justify-between ps-5"
       >
         <div>
           <div class="flex lg:hidden gap-x-2 items-center cursor-pointer pb-8">
@@ -104,10 +104,10 @@ export default {
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
-      console.log("Menu is toggled");
+      // console.log("Menu is toggled");
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

@@ -35,4 +35,23 @@ export const CarouselData = [
     imgUrl: img2,
     url: "#",
   },
+  {
+    id: 6,
+    name: "Dining",
+    imgUrl: img3,
+    url: "#",
+  },
+  {
+    id: 7,
+    name: "Living",
+    imgUrl: img1,
+    url: "#",
+  },
+  {
+    id: 8,
+    name: "Dinning",
+    imgUrl: img2,
+    url: "#",
+  },
+  //   dummy
 ];
