@@ -6,6 +6,21 @@ const routes = [
     name: "Home",
     component: () => import("../views/HomePage.vue"),
   },
+  {
+    path: "/shop",
+    name: "Shop",
+    component: () => import("../views/ShopPage.vue")
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: () => import("../views/AboutPage.vue")
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: () => import("../views/ContactPage.vue")
+  }
   // {
   //   path: '/',
   //   name: 'home',

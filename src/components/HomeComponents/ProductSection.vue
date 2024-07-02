@@ -63,13 +63,11 @@
       </div>
     </div>
     <div class="text-center pb-10">
-      <button
-        v-if="showMore < ProductImageData.length"
-        @click="loadMore"
+      <router-link :to="{name: 'Shop'}"
         class="border-[1.5px] font-semibold text-primary border-primary py-3 px-16 cursor-pointer hover:bg-primary hover:text-white hover:border-none transition-all duration-300 ease-in-out"
       >
         Show More
-      </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -85,9 +83,9 @@ export default {
     };
   },
   methods: {
-    loadMore() {
-      this.showMore = this.showMore + 4;
-    },
+    // loadMore() {
+    //   this.showMore = this.showMore + 4;
+    // },
   },
   computed: {
     displayProducts() {

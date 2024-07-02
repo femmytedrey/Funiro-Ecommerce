@@ -1,7 +1,7 @@
 <template>
-  <div class="py-10">
+  <div class="pt-10 pb-32">
     <div>
-      <p class="font-semibold text-2xl lg:text-3xl text-center pb-4">
+      <p class="font-semibold text-2xl lg:text-3xl text-center pb-6">
         Our Happy Customer
       </p>
     </div>
@@ -41,7 +41,7 @@
       </div>
     </div>
     <!-- Mobile Navigation Arrows -->
-    <div class="flex justify-center gap-x-6 mt-4 md:hidden">
+    <div class="flex justify-center gap-x-10 mt-4 md:hidden">
       <button @click="prevReview" class="text-xl">
         <i class="fa fa-chevron-left"></i>
       </button>

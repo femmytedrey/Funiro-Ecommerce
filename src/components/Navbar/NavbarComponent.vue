@@ -3,10 +3,13 @@
     <nav
       class="py-5 px-5 md:px-20 flex justify-between items-center shadow relative"
     >
-      <div class="flex gap-x-2 items-center cursor-pointer">
+      <router-link
+        :to="{ name: 'Home' }"
+        class="flex gap-x-2 items-center cursor-pointer"
+      >
         <img src="../../assets/logo.png" alt="logo" />
         <p class="text-3xl font-semibold">Funiro</p>
-      </div>
+      </router-link>
 
       <div
         :class="isMenuOpen ? 'block' : 'hidden'"
@@ -28,25 +31,33 @@
           <div
             class="flex flex-col lg:flex-row gap-x-8 text-primaryText font-medium"
           >
-            <a
+            <router-link
+              :to="{ name: 'Home' }"
+              @click="toggleMenu"
               class="block lg:inline-block lg:pl-0 p-4 transition ease-in-out duration-300 hover:bg-gray-100 lg:hover:bg-transparent lg:pb-0 hover:text-primary"
               href=""
-              >Home</a
+              >Home</router-link
             >
-            <a
+            <router-link
+              :to="{ name: 'Shop' }"
+              @click="toggleMenu"
               class="block lg:inline-block lg:pl-0 p-4 transition ease-in-out duration-300 hover:bg-gray-100 lg:hover:bg-transparent lg:pb-0 hover:text-primary"
               href=""
-              >Shop</a
+              >Shop</router-link
             >
-            <a
+            <router-link
+              :to="{ name: 'About' }"
+              @click="toggleMenu"
               class="block lg:inline-block lg:pl-0 p-4 transition ease-in-out duration-300 hover:bg-gray-100 lg:hover:bg-transparent lg:pb-0 hover:text-primary"
               href=""
-              >About</a
+              >About</router-link
             >
-            <a
+            <router-link
+              :to="{ name: 'Contact' }"
+              @click="toggleMenu"
               class="block lg:inline-block lg:pl-0 p-4 transition ease-in-out duration-300 hover:bg-gray-100 lg:hover:bg-transparent lg:pb-0 hover:text-primary"
               href=""
-              >Contact</a
+              >Contact</router-link
             >
           </div>
         </div>
@@ -57,9 +68,9 @@
             Login
           </button>
           <button
-            class="bg-primary hover:bg-[#9f761a] text-white px-3 py-2 rounded-3xl"
+            class="bg-primary hover:bg-[#9f761a] text-white px-6 py-2 rounded-3xl"
           >
-            Get Started
+            Sign Up
           </button>
         </div>
       </div>
@@ -68,9 +79,9 @@
 
         <!-- <button class="border px-6 hidden lg:inline-block py-2 border-primaryText rounded-3xl hover:bg-black transition-all duration-100 hover:text-white">Login</button> -->
         <button
-          class="bg-primary hidden lg:inline-block hover:bg-[#9f761a] text-white px-3 py-2 rounded-3xl"
+          class="bg-primary hidden lg:inline-block hover:bg-[#9f761a] text-white px-6 py-2 rounded-3xl"
         >
-          Get Started
+          Sign Up
         </button>
 
         <div class="flex items-center gap-x-4">
@@ -82,7 +93,7 @@
           </div>
           <div class="relative cursor-pointer">
             <div
-              class="rounded-full flex justify-center items-center h-5 w-5 p-3 bg-red-500 text-white text-xs absolute left-4 top-[-12px] "
+              class="rounded-full flex justify-center items-center h-5 w-5 p-3 bg-red-500 text-white text-xs absolute left-4 top-[-12px]"
             >
               10
             </div>
