@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-10 pb-32">
+  <div class="pt-10 ">
     <div>
       <p class="font-semibold text-2xl lg:text-3xl text-center pb-6">
         Our Happy Customer

@@ -1,9 +1,12 @@
 <template>
   <div class="h-screen flex flex-col justify-between">
-    <NavbarComponent />
-
+    <template v-if="!isAuthRoute">
+      <NavbarComponent />
+    </template>
     <router-view />
-    <FooterSection />
+    <template v-if="!isAuthRoute">
+      <FooterSection />
+    </template>
   </div>
   <!-- <div class="px-5 md:px-20"> -->
   <!-- </div> -->
@@ -18,6 +21,11 @@ export default {
   components: {
     NavbarComponent,
     FooterSection,
+  },
+  computed: {
+    isAuthRoute() {
+      return this.$route.path.startsWith("/auth");
+    },
   },
 };
 </script>

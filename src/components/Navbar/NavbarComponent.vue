@@ -62,27 +62,27 @@
           </div>
         </div>
         <div class="lg:hidden pb-5 pr-5 flex flex-col gap-3">
-          <button
+          <router-link :to="{name: 'Login'}"
             class="border px-6 py-2 border-primaryText rounded-3xl hover:bg-black transition-all duration-100 hover:text-white"
           >
             Login
-          </button>
-          <button
+          </router-link>
+          <router-link :to="{name: 'Register'}"
             class="bg-primary hover:bg-[#9f761a] text-white px-6 py-2 rounded-3xl"
           >
             Sign Up
-          </button>
+          </router-link>
         </div>
       </div>
       <div class="flex gap-x-5 items-center">
         <!-- <i class="fa-solid fa-user-xmark"></i> -->
 
         <!-- <button class="border px-6 hidden lg:inline-block py-2 border-primaryText rounded-3xl hover:bg-black transition-all duration-100 hover:text-white">Login</button> -->
-        <button
+        <router-link :to="{name: 'Register'}"
           class="bg-primary hidden lg:inline-block hover:bg-[#9f761a] text-white px-6 py-2 rounded-3xl"
         >
           Sign Up
-        </button>
+        </router-link>
 
         <div class="flex items-center gap-x-4">
           <div class="inline-block lg:hidden text-2xl cursor-pointer">
@@ -92,7 +92,7 @@
             ></i>
           </div>
           <div class="relative cursor-pointer">
-            <div
+            <div v-if="authStore.isAuthenticated"
               class="rounded-full flex justify-center items-center h-5 w-5 p-3 bg-red-500 text-white text-xs absolute left-4 top-[-12px]"
             >
               10
@@ -106,18 +106,23 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useAuthStore } from '../Store/auth.store';
 export default {
-  data() {
+  setup(){
+    const isMenuOpen = ref(false)
+    const authStore = useAuthStore()
+
+    const toggleMenu = () => {
+      isMenuOpen.value =!isMenuOpen.value
+    }
+
     return {
-      isMenuOpen: false,
-    };
-  },
-  methods: {
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen;
-      // console.log("Menu is toggled");
-    },
-  },
+      isMenuOpen,
+      toggleMenu,
+      authStore
+    }
+  }
 };
 </script>
 

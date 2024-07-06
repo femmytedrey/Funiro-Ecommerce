@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "../components/Store/auth.store";
 
 const routes = [
   {
@@ -9,36 +10,70 @@ const routes = [
   {
     path: "/shop",
     name: "Shop",
-    component: () => import("../views/ShopPage.vue")
+    component: () => import("../views/ShopPage.vue"),
   },
   {
     path: "/about",
     name: "About",
-    component: () => import("../views/AboutPage.vue")
+    component: () => import("../views/AboutPage.vue"),
   },
   {
     path: "/contact",
     name: "Contact",
-    component: () => import("../views/ContactPage.vue")
-  }
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+    component: () => import("../views/ContactPage.vue"),
+  },
+  {
+    path: "/auth/login",
+    name: "Login",
+    component: () => import("../views/auth/LoginPage.vue"),
+    meta: {
+      requireAuth: false,
+    },
+  },
+  {
+    path: "/auth/register",
+    name: "Register",
+    component: () => import("../views/auth/SignupPage.vue"),
+    meta: {
+      requireAuth: false,
+    },
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import("../views/DashboardPage.vue"),
+    meta: {
+      requireAuth: true,
+    },
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (
+    to.matched.some((record) => record.meta.requireAuth) &&
+    !authStore.isAuthenticated
+  ) {
+    next({
+      path: "/auth/login",
+      query: { redirect: to.fullPath },
+    });
+  } else {
+    if (
+      (to.path === "/auth/login" || to.path === "/auth/register") &&
+      authStore.isAuthenticated
+    ) {
+      alert("You are already authorized");
+      next("/");
+    }
+    next();
+  }
 });
 
 export default router;

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col space-y-6 px-5 md:px-12 lg:px-24 border-t-[1.5px] relative pt-28 md:pt-24 justify-center"
+    class="flex flex-col space-y-6 px-5 md:px-12 lg:px-24 border-t-[1.5px] relative mt-32 pt-28 md:pt-24 justify-center"
   >
     <div
       class="bg-black text-white w-[90%] lg:w-[80%] items-center md:w-[75%] justify-between gap-x-7 p-6 gap-y-4 mx-auto absolute top-[-20%] lg:top-[-15%] xl:top-[-18%] rounded-2xl left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row"
@@ -12,8 +12,8 @@
       </div>
       <div class="flex flex-col gap-y-3 md:w-[65%] w-full">
         <input
-          type="text"
-          class="py-2 md:py-3 px-5 rounded-3xl outline-none border-none"
+          type="email"
+          class="py-2 md:py-3 px-5 rounded-3xl outline-none border-none text-black"
           placeholder="Enter your email"
         />
         <button
@@ -71,6 +71,11 @@
                 class="hover:text-primary transition-all duration-300 ease-in-out"
                 >Privacy Policies</router-link
               >
+              <router-link
+                to="#"
+                class="hover:text-primary transition-all duration-300 ease-in-out"
+                >Terms & Conditions</router-link
+              >
             </div>
           </div>
         </div>
@@ -79,7 +84,7 @@
     <div
       class="text-center border-t-[1.5px] py-6 md:py-8 text-sm md:text-lg text-greyLight"
     >
-      2024 furino. All rights reverved
+      2024 furino. All rights reserved
     </div>
   </div>
 </template>
