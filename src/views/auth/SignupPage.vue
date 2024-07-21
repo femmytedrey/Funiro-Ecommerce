@@ -15,14 +15,27 @@
       <form @submit.prevent="handleSignup" class="space-y-4" novalidate>
         <div class="mb-4 relative">
           <InputField
-            label="Name"
-            placeholder="e.g John Doe"
-            id="name"
+            label="First Name"
+            placeholder="e.g John"
+            id="fname"
             type="text"
-            v-model="user.name"
+            v-model="user.firstName"
           />
-          <p v-if="errors.name" class="text-red-500 text-sm md:text-base">
-            {{ errors.name }}
+          <p v-if="errors.firstName" class="text-red-500 text-sm md:text-base">
+            {{ errors.firstName }}
+          </p>
+        </div>
+
+        <div class="mb-4 relative">
+          <InputField
+            label="Last Name"
+            placeholder="e.g Doe"
+            id="lname"
+            type="text"
+            v-model="user.lastName"
+          />
+          <p v-if="errors.lastName" class="text-red-500 text-sm md:text-base">
+            {{ errors.lastName }}
           </p>
         </div>
 

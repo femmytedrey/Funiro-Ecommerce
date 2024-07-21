@@ -46,11 +46,19 @@ const routes = [
       requireAuth: true,
     },
   },
+  {
+    path: "/product/:id",
+    name: "ProductDetail",
+    component: () => import("../components/HomeComponents/ProductDetail.vue"),
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  scrollBehavior() {
+    return { top: 0 };
+  }
 });
 
 router.beforeEach((to, from, next) => {

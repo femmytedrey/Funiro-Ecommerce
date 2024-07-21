@@ -1,6 +1,6 @@
 <template>
   <div class="py-40 gap-y-12 flex flex-col justify-center items-center font-semibold text-2xl ">
-    <p class="text-center">Hey {{authUser.user.name}}, Welcome to your Dashboard</p>
+    <p class="text-center">Hey {{ authUser.user.firstName}}, Welcome to your Dashboard</p>
     <button class="bg-primary px-8 py-2 text-white rounded-xl" @click="handleLogout">Logout</button>
   </div>
 </template>

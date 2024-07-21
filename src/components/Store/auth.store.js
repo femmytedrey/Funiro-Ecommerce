@@ -4,18 +4,19 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const AUTH_COOKIE_NAME = "isAuthenticated";
+const USER_DATA_COOKIE_NAME = "userData";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: {},
+    user: JSON.parse(Cookies.get(USER_DATA_COOKIE_NAME) || "{}"),
     isAuthenticated: Cookies.get(AUTH_COOKIE_NAME) === "true",
     errors: {},
     loading: false,
@@ -24,10 +25,15 @@ export const useAuthStore = defineStore("auth", {
     async validateUserData(userData, options = { validateName: true }) {
       this.clearErrors();
 
-      const { name, email, password } = userData;
+      const { firstName, lastName, email, password } = userData;
 
-      if (options.validateName && !name) {
-        this.setError("name", "Name is required");
+      if (options.validateName) {
+        if (!firstName) {
+          this.setError("firstName", "First name is required");
+        }
+        if (!lastName) {
+          this.setError("lastName", "Last name is required");
+        }
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,25 +69,55 @@ export const useAuthStore = defineStore("auth", {
           userData.email,
           userData.password
         );
-        await updateProfile(user, { displayName: userData.name });
+
+        const idToken = await user.getIdToken(true);
+        console.log(idToken);
+
         this.user = {
           uid: user.uid,
           email: user.email,
-          name: user.displayName,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
         };
-        console.log(this.user);
+
         this.isAuthenticated = true;
         Cookies.set(AUTH_COOKIE_NAME, true, {
           expires: 7,
           secure: true,
           sameSite: "Strict",
         });
+
+        await this.storeUser(this.user, idToken);
+
         await this.login({
           email: userData.email,
           password: userData.password,
         });
       } catch (error) {
         this.handleFirebaseError(error.code);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    //store user's in the backend
+    async storeUser(user, idToken) {
+      this.loading = true;
+      try {
+        const response = await axios.post(
+          `${process.env.VUE_APP_BASE_URL}/store-user`,
+          user,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
+        );
+        this.user = response.data;
+        console.log(this.user, "userData");
+      } catch (error) {
+        console.log(error.response.data);
       } finally {
         this.loading = false;
       }
@@ -107,9 +143,12 @@ export const useAuthStore = defineStore("auth", {
         this.user = {
           uid: user.uid,
           email: user.email,
-          name: user.displayName,
         };
-        console.log(this.user);
+
+        const idToken = await user.getIdToken(true);
+
+        await this.updateUser(this.user, idToken);
+
         this.isAuthenticated = true;
         Cookies.set(AUTH_COOKIE_NAME, true, {
           expires: 7,
@@ -123,17 +162,58 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
+    //updateUser
+    async updateUser(user, idToken) {
+      this.loading = true;
+      try {
+        const response = await axios.post(
+          `${process.env.VUE_APP_BASE_URL}/update-user`,
+          user,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
+        );
+        this.user = response.data;
+      } catch (error) {
+        console.log(error.response.data);
+      } finally {
+        this.loading = false;
+      }
+    },
+
     async signInWithGoogle() {
       try {
         const provider = new GoogleAuthProvider();
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
 
+        const tokenId = await user.getIdToken(true);
+
         this.user = {
           uid: user.uid,
           email: user.email,
-          name: user.displayName,
+          firstName: user.displayName.split(" ")[0],
+          lastName: user.displayName.split(" ")[1],
         };
+
+        try {
+          await axios.get(
+            `${process.env.VUE_APP_BASE_URL}/get-user/${user.uid}`,
+            {
+              headers: {
+                Authorization: `Bearer ${tokenId}`,
+              },
+            }
+          );
+          await this.updateUser(this.user, tokenId);
+        } catch (error) {
+          await this.storeUser(this.user, tokenId);
+        }
+
+        console.log(this.user);
         this.isAuthenticated = true;
         Cookies.set(AUTH_COOKIE_NAME, true, {
           expires: 7,
@@ -199,24 +279,45 @@ export const useAuthStore = defineStore("auth", {
           this.setError("general", "An unknown error occurred");
       }
     },
+
     initAuthState() {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          this.user = {
-            uid: user.uid,
-            email: user.email,
-            name: user.displayName,
-          };
-          this.isAuthenticated = true;
-          Cookies.set(AUTH_COOKIE_NAME, true, {
-            expires: 7,
-            secure: true,
-            sameSite: "Strict",
-          });
+      onAuthStateChanged(auth, async (user) => {
+        if (user && this.isAuthenticated === true) {
+          try {
+            if (!Cookies.get(USER_DATA_COOKIE_NAME)) {
+              const idToken = await user.getIdToken(true);
+              const response = await axios.get(
+                `${process.env.VUE_APP_BASE_URL}/get-user/${user.uid}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${idToken}`,
+                  },
+                }
+              );
+              this.user = {
+                uid: user.uid,
+                email: user.email,
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+              };
+              Cookies.set(USER_DATA_COOKIE_NAME, JSON.stringify(this.user), {
+                expires: 7,
+                secure: true,
+                sameSite: "Strict",
+              });
+            } else {
+              this.user = JSON.parse(
+                Cookies.get(USER_DATA_COOKIE_NAME || "{}")
+              );
+            }
+          } catch (error) {
+            console.log(error.response.data.error);
+          }
         } else {
           this.user = {};
           this.isAuthenticated = false;
           Cookies.remove(AUTH_COOKIE_NAME);
+          Cookies.remove(USER_DATA_COOKIE_NAME);
         }
       });
     },

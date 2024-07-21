@@ -18,8 +18,13 @@
           :class="isHover === index ? 'translate-y-0' : '-translate-y-full'"
           class="absolute w-full h-full bg-black/40 flex flex-col justify-center items-center gap-y-5 transition-transform duration-500"
         >
-          <button
+          <router-link :to="{ name: 'ProductDetail', params: { id: product.id } }"
             class="px-10 text-sm font-semibold text-primary hover:text-white py-3 bg-white hover:bg-primary transition-all duration-300 ease-in-out"
+          >
+            View Product
+          </router-link>
+          <button
+            class="px-10 text-sm font-semibold text-white hover:text-primary transition-all duration-300 ease-in-out"
           >
             Add to cart
           </button>
@@ -63,7 +68,8 @@
       </div>
     </div>
     <div class="text-center pb-10">
-      <router-link :to="{name: 'Shop'}"
+      <router-link
+        :to="{ name: 'Shop' }"
         class="border-[1.5px] font-semibold text-primary border-primary py-3 px-16 cursor-pointer hover:bg-primary hover:text-white hover:border-none transition-all duration-300 ease-in-out"
       >
         Show More
