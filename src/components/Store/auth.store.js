@@ -71,7 +71,6 @@ export const useAuthStore = defineStore("auth", {
         );
 
         const idToken = await user.getIdToken(true);
-        console.log(idToken);
 
         this.user = {
           uid: user.uid,
@@ -213,7 +212,6 @@ export const useAuthStore = defineStore("auth", {
           await this.storeUser(this.user, tokenId);
         }
 
-        console.log(this.user);
         this.isAuthenticated = true;
         Cookies.set(AUTH_COOKIE_NAME, true, {
           expires: 7,
