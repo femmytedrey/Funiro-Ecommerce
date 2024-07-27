@@ -122,7 +122,7 @@ export default {
     const isHover = ref(null);
     const currentPage = ref(parseInt(route.query.page) || 1);
     const itemsPerPage = ref(16);
-    const maxVisiblePages = 5;
+    const maxVisiblePages = 4;
 
     const paginatedProduct = computed(() => {
       const start = (currentPage.value - 1) * itemsPerPage.value;

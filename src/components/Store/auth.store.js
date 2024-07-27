@@ -104,7 +104,7 @@ export const useAuthStore = defineStore("auth", {
       this.loading = true;
       try {
         const response = await axios.post(
-          `${process.env.VUE_APP_BASE_URL}/store-user`,
+          `${process.env.VUE_APP_BASE_URL}/users/store-user`,
           user,
           {
             headers: {
@@ -114,7 +114,6 @@ export const useAuthStore = defineStore("auth", {
           }
         );
         this.user = response.data;
-        console.log(this.user, "userData");
       } catch (error) {
         console.log(error.response.data);
       } finally {
@@ -166,7 +165,7 @@ export const useAuthStore = defineStore("auth", {
       this.loading = true;
       try {
         const response = await axios.post(
-          `${process.env.VUE_APP_BASE_URL}/update-user`,
+          `${process.env.VUE_APP_BASE_URL}/users/update-user`,
           user,
           {
             headers: {
@@ -200,7 +199,7 @@ export const useAuthStore = defineStore("auth", {
 
         try {
           await axios.get(
-            `${process.env.VUE_APP_BASE_URL}/get-user/${user.uid}`,
+            `${process.env.VUE_APP_BASE_URL}/users/get-user/${user.uid}`,
             {
               headers: {
                 Authorization: `Bearer ${tokenId}`,
@@ -285,7 +284,7 @@ export const useAuthStore = defineStore("auth", {
             if (!Cookies.get(USER_DATA_COOKIE_NAME)) {
               const idToken = await user.getIdToken(true);
               const response = await axios.get(
-                `${process.env.VUE_APP_BASE_URL}/get-user/${user.uid}`,
+                `${process.env.VUE_APP_BASE_URL}/users/get-user/${user.uid}`,
                 {
                   headers: {
                     Authorization: `Bearer ${idToken}`,

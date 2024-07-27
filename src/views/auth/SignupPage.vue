@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex items-center justify-center flex-col bg-gray-50 img-space px-5 space-y-5"
+    class="min-h-fit py-16 flex items-center justify-center flex-col bg-gray-50 img-space px-5 space-y-5"
   >
     <div class="bg-white/90 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
       <h2 class="text-2xl font-semibold text-center">Sign Up</h2>

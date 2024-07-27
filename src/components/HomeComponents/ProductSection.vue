@@ -5,20 +5,21 @@
     </div>
 
     <div
-      class="px-7 md:px-20 grid grid-cols-1 sm:grid-cols-2 midBreak:grid-cols-3 xl:grid-cols-4 gap-x-7 gap-y-5 cursor-pointer pb-5"
+      class="px-7 md:px-20 grid grid-cols-1 sm:grid-cols-2 midBreak:grid-cols-3 xl:grid-cols-4 gap-x-7 gap-y-5 cursor-pointer pb-10"
     >
       <div
         v-for="(product, index) in displayProducts"
-        :key="index"
+        :key="product._id"
         @mouseenter="isHover = index"
         @mouseleave="isHover = null"
-        class="h-[320px] midBreak:h-[260px] nextMidBreak:h-[280px] md:h-[320px] mlg:h-[350px] midBreak:w-[200px] nextMidBreak:w-[220px] md:w-[230px] mlg:w-[260px] flex flex-col bg-[#F4F5F7] relative overflow-hidden"
+        class="h-[320px] midBreak:h-[260px] nextMidBreak:h-[280px] md:h-[320px] mlg:h-[350px] midBreak:w-[200px] nextMidBreak:w-[220px] md:w-[230px] mlg:w-[260px] flex flex-col bg-[#F4F5F7] shadow-lg hover:scale-100 md:hover:scale-110 transition-all duration-300 ease-in-out hover:z-50 relative overflow-hidden"
       >
         <div
           :class="isHover === index ? 'translate-y-0' : '-translate-y-full'"
           class="absolute w-full h-full bg-black/40 flex flex-col justify-center items-center gap-y-5 transition-transform duration-500"
         >
-          <router-link :to="{ name: 'ProductDetail', params: { id: product.id } }"
+          <router-link
+            :to="{ name: 'ProductDetail', params: { id: product._id } }"
             class="px-10 text-sm font-semibold text-primary hover:text-white py-3 bg-white hover:bg-primary transition-all duration-300 ease-in-out"
           >
             View Product
@@ -46,7 +47,7 @@
         </div>
         <div class="h-[70%] w-full bg-gray-600 overflow-hidden">
           <img
-            :src="product.imgUrl"
+            :src="product.images[0]"
             class="w-full h-full object-cover object-center"
             alt=""
           />
@@ -79,24 +80,27 @@
 </template>
 
 <script>
-import { ProductImageData } from "../../assets/ProductImageData";
+import { computed, onMounted, ref } from "vue";
+import { useProductsStore } from "../Store/productStore";
+// import { ProductImageData } from "../../assets/ProductImageData";
 export default {
-  data() {
+  setup() {
+    const isHover = ref(null);
+    const showMore = ref(4);
+    const productStore = useProductsStore();
+
+    onMounted(() => {
+      productStore.fetchProducts();
+    });
+
+    const displayProducts = computed(() =>
+      productStore.displayProducts(showMore.value)
+    );
+
     return {
-      ProductImageData,
-      isHover: null,
-      showMore: 4,
+      isHover,
+      displayProducts,
     };
-  },
-  methods: {
-    // loadMore() {
-    //   this.showMore = this.showMore + 4;
-    // },
-  },
-  computed: {
-    displayProducts() {
-      return this.ProductImageData.slice(0, this.showMore);
-    },
   },
 };
 </script>

@@ -13,9 +13,9 @@ export default {
     const authUser = useAuthStore();
     const router = useRouter()
 
-    const handleLogout = () => {
-      authUser.logout();
-      router.push({name: 'Home'})
+    const handleLogout = async () => {
+      await authUser.logout();
+      router.push({name: 'Login'})
     };
 
     return {
