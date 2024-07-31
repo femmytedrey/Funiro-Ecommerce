@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed sm:relative bg-white w-full z-10">
+  <div class="fixed sm:relative bg-white w-full z-[100]">
     <nav
       class="py-5 px-5 md:px-20 flex justify-between items-center shadow relative"
     >

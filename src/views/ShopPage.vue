@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ProductGrid from "../components/HomeComponents/ProductGrid.vue";
+import ProductGrid from "../components/ShopComponents/ProductGrid.vue";
 export default {
   components: {
     ProductGrid,

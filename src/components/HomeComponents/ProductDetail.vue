@@ -1,32 +1,46 @@
 <template>
-  <div v-if="product && !loading" class="flex px-20 py-12 gap-x-12">
-    <div class="flex gap-x-7 h-96 w-[50%]">
-      <div class="flex flex-col gap-y-3 h-full px-4 py-4 w-44 bg-primary">
+  <div
+    v-if="product && !loading"
+    class="flex px-6 xl:px-20 pt-28 sm:pt-10 xl:py-12 gap-x-8 xl:gap-x-12 flex-col sm:flex-row w-full"
+  >
+    <div
+      class="flex flex-col xl:flex-row gap-x-7 gap-y-4 h-fit sm:w-[50%] w-full"
+    >
+      <div
+        class="flex flex-row xl:flex-col justify-between order-2 xl:order-1 gap-y-3 gap-x-3 w-full xl:w-44 h-24 xl:h-full px-0 xl:px-4 py-2 xl:py-4 xl:border-transparent bg-transparent xl:bg-primary"
+      >
         <div
           v-for="(image, index) in product.images"
           :key="index"
           @click="selectImage(index)"
           :class="[
-            `rounded overflow-hidden cursor-pointer -shadow-lg w-24`,
-            selectedImageIndex === index ? 'border-4 border-white' : '',
+            `rounded overflow-hidden cursor-pointer -shadow-lg w-full xl:w-24 h-fit `,
+            selectedImageIndex === index
+              ? 'border-2 xl:border-4  border-primary xl:border-white '
+              : '',
           ]"
         >
-          <img :src="image" :alt="`Image ${index + 1} of ${product.name}`" />
+          <img
+            :src="image"
+            :alt="`Image ${index + 1} of ${product.name}`"
+            class="object-contain"
+          />
         </div>
       </div>
 
       <div
-        class="rounded-2xl overflow-hidden cursor-pointer h-full shadow-lg bg-blue-700"
+        class="rounded-2xl overflow-hidden cursor-pointer order-1 xl:order-2 h-fit shadow-lg"
       >
+        <!-- main-image -->
         <img
           :src="product.images[selectedImageIndex]"
           :alt="product.name"
-          class="w-full rounded-2xl transition-all duration-300 ease-in-out hover:scale-105"
+          class="object-contain rounded-2xl transition-all duration-300 ease-in-out hover:scale-105"
         />
       </div>
     </div>
 
-    <div class="flex flex-col py-2 gap-y-3 w-[40%] justify-around">
+    <div class="flex flex-col py-2 gap-y-3 w-full justify-around sm:w-[40%]">
       <div class="flex flex-col gap-y-2">
         <p class="text-3xl">{{ product.name }}</p>
         <div class="flex gap-x-5 items-center">
@@ -53,12 +67,23 @@
 
       <!-- add to cart -->
       <div class="flex gap-x-3">
-        <div class="flex gap-x-4 border border-gray-400 rounded-lg px-2 py-2 w-fit " >
-          <button class="cursor-pointer">+</button>
-          1
-          <button class="cursor-pointer px-2">-</button>
+        <div
+          class="flex gap-x-4 border border-gray-400 rounded-lg px-2 py-2 w-fit"
+        >
+          <button class="cursor-pointer" @click="subtractItem">-</button>
+          <input
+            type="number"
+            v-model="defaultCartItems"
+            class="outline-none w-8"
+            min="1"
+          />
+          <button class="cursor-pointer px-2" @click="addItem">+</button>
         </div>
-        <button class="border hover:bg-primary hover:border-none hover:text-white transition-all duration-300 ease-in-out border-gray-500 px-2 py-2 rounded-lg">Add To Cart</button>
+        <button
+          class="border hover:bg-primary hover:border-none hover:text-white transition-all duration-300 ease-in-out border-gray-500 px-2 py-2 rounded-lg flex-1 sm:flex-none"
+        >
+          Add To Cart
+        </button>
       </div>
     </div>
   </div>
@@ -76,8 +101,19 @@ export default {
     const productStore = useProductsStore();
     const route = useRoute();
     const selectedImageIndex = ref(0);
+    const defaultCartItems = ref(1);
 
     const loading = computed(() => productStore.loading);
+
+    const subtractItem = () => {
+      if (defaultCartItems.value > 1) {
+        defaultCartItems.value--;
+      }
+    };
+
+    const addItem = () => {
+      defaultCartItems.value++;
+    };
 
     onMounted(async () => {
       const productId = route.params.id;
@@ -92,8 +128,22 @@ export default {
       product,
       loading,
       selectedImageIndex,
+      defaultCartItems,
       selectImage,
+      subtractItem,
+      addItem,
     };
   },
 };
 </script>
+<style scoped>
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+</style>

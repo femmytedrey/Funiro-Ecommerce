@@ -115,7 +115,7 @@ export const useAuthStore = defineStore("auth", {
         );
         this.user = response.data;
       } catch (error) {
-        console.log(error.response.data);
+        console.log(error.message);
       } finally {
         this.loading = false;
       }
@@ -176,7 +176,7 @@ export const useAuthStore = defineStore("auth", {
         );
         this.user = response.data;
       } catch (error) {
-        console.log(error.response.data);
+        console.log(error.message);
       } finally {
         this.loading = false;
       }
@@ -308,7 +308,7 @@ export const useAuthStore = defineStore("auth", {
               );
             }
           } catch (error) {
-            console.log(error.response.data.error);
+            console.log(error.message);
           }
         } else {
           this.user = {};
