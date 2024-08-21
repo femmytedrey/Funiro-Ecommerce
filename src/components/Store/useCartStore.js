@@ -48,7 +48,6 @@ export const useCartStore = defineStore("cart", {
       
       try {
           const idToken = await this.getIdToken();
-        console.log(idToken);
 
         if (this.lastFetchedToken !== idToken) {
             this.lastFetchedToken = idToken;
@@ -62,7 +61,6 @@ export const useCartStore = defineStore("cart", {
             }
           );
 
-          console.log(response);
           this.cart = response?.data?.cart || {};
         //   sessionStorage.setItem("cart", JSON.stringify(this.cart));
         }
@@ -81,7 +79,6 @@ export const useCartStore = defineStore("cart", {
 
       try {
         const idToken = await this.getIdToken();
-        console.log(idToken);
 
         const response = await axios.post(
           `${process.env.VUE_APP_BASE_URL}/cart`,
@@ -89,7 +86,6 @@ export const useCartStore = defineStore("cart", {
           { headers: { Authorization: `Bearer ${idToken}` } }
         );
 
-        console.log(response);
 
         this.cart = response?.data?.cart;
         //sessionStorage.setItem("cart", JSON.stringify(this.cart));
@@ -108,7 +104,6 @@ export const useCartStore = defineStore("cart", {
 
       try {
         const idToken = await this.getIdToken()
-        console.log(idToken)
         const response = await axios.delete(`${process.env.VUE_APP_BASE_URL}/cart/${productId}`, {
           headers: {
             Authorization: `Bearer ${idToken}`
