@@ -82,14 +82,16 @@
 import { useAuthStore } from "@/components/Store/auth.store.js";
 import { onMounted } from 'vue';
 import Chart from 'chart.js/auto'; // Ensure Chart.js is installed
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
     const authUser = useAuthStore();
+    const router = useRouter()
 
     const handleLogout = async () => {
       await authUser.logout();
-      // Handle navigation to login page or show a message
+      router.push({name: 'Login'})
     };
 
     onMounted(() => {

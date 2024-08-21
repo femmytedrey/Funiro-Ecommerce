@@ -69,7 +69,7 @@ export const useAuthStore = defineStore("auth", {
           userData.email,
           userData.password
         );
-        f;
+        
         const idToken = await user.getIdToken(true);
 
         this.user = {
