@@ -1,11 +1,27 @@
 <template>
-  <div class="py-40 flex justify-center items-center font-semibold text-2xl">
-    Welcome to About Page
+  <div
+    class="bg relative py-32 mb-9 flex flex-col justify-center items-center"
+  >
+    <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-0"></div>
+    <div class="z-10 text-center space-y-3">
+      <p class="text-4xl font-medium">About</p>
+      <p class="text-xl">Learn more about our story, values, and vision</p>
+    </div>
   </div>
+  <dmoVue />
 </template>
 
 <script>
-export default {};
+import dmoVue from '@/components/Store/dmo.vue';
+export default {
+  components: {dmoVue},
+};
 </script>
 
-<style></style>
+<style scoped>
+.bg {
+  background-image: url("@/assets/sofa.jpg");
+  background-position: center;
+  filter: grayscale(30%);
+}
+</style>

@@ -80,6 +80,7 @@
           <button class="cursor-pointer px-2" @click="addItem">+</button>
         </div>
         <button
+        @click="addToCart"
           class="border hover:bg-primary hover:border-none hover:text-white transition-all duration-300 ease-in-out border-gray-500 px-2 py-2 rounded-lg flex-1 sm:flex-none"
         >
           Add To Cart
@@ -92,16 +93,36 @@
 
 <script>
 import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useProductsStore } from "../Store/productStore";
+import { useCartStore } from "../Store/useCartStore";
+import { useAuthStore } from "../Store/auth.store";
 
 export default {
   setup() {
     const product = ref(null);
     const productStore = useProductsStore();
     const route = useRoute();
+    const router = useRouter()
     const selectedImageIndex = ref(0);
     const defaultCartItems = ref(1);
+    const cartStore = useCartStore();
+    const authStore = useAuthStore();
+
+    const addToCart = async () => {
+      if (!authStore.isAuthenticated) {
+        alert("Please log in to add items to cart");
+        router.push("/auth/login");
+        return;
+      }
+
+      try {
+        const productId = route.params.id
+        await cartStore.addToCart(productId, defaultCartItems.value)
+      } catch (error) {
+        console.log(cartStore.error)
+      }
+    };
 
     const loading = computed(() => productStore.loading);
 
@@ -132,6 +153,7 @@ export default {
       selectImage,
       subtractItem,
       addItem,
+      addToCart,
     };
   },
 };
@@ -139,11 +161,11 @@ export default {
 <style scoped>
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="number"] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 </style>

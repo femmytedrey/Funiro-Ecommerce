@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { auth } from "../FirebasaeSetup/Firebase";
+import { auth } from "../FirebaseSetup/Firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -69,7 +69,7 @@ export const useAuthStore = defineStore("auth", {
           userData.email,
           userData.password
         );
-
+        f;
         const idToken = await user.getIdToken(true);
 
         this.user = {

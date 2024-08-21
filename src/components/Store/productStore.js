@@ -24,6 +24,18 @@ export const useProductsStore = defineStore("products", {
       }
     },
 
+    async searchProduct(searchQuery) {
+      this.loading = true;
+      try {
+        const response = await axios.get(`${process.env.VUE_APP_BASE_URL}/products/search?q=${searchQuery}`);
+        this.products = response.data;
+      } catch (error) {
+        console.error('Error fetching search results:', error.message);
+      } finally {
+        this.loading = false;
+      }
+    },    
+
     async fetchProduct(productId) {
       this.loading = true;
       try {

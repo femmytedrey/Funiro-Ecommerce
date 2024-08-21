@@ -4,7 +4,9 @@
     @mouseleave="closeModal"
   >
     <div class="px-5 py-3 text-center text-sm cursor-default">
-      <p class="text-gray-500">{{ user.firstName }} {{ user.lastName }}</p>
+      <p class="text-gray-500">
+        {{ user.firstName }} {{ user.lastName.substring(0, 2) }}...
+      </p>
       <p class="font-semibold">{{ formattedEmail }}</p>
     </div>
     <div class="flex flex-col text-sm font-semibold">
@@ -14,7 +16,10 @@
       >
         Dashboard
       </router-link>
-      <button @click="handleLogout" class="w-full text-left px-5 py-2 flex gap-x-2 items-center">
+      <button
+        @click="handleLogout"
+        class="w-full text-left px-5 py-2 flex gap-x-2 items-center"
+      >
         <i class="fa-solid fa-arrow-left"></i> Logout
       </button>
     </div>
@@ -32,7 +37,6 @@ export default defineComponent({
     const authStore = useAuthStore();
     const router = useRouter();
 
-
     const closeModal = () => {
       emit("close");
     };
@@ -41,15 +45,19 @@ export default defineComponent({
 
     const formattedEmail = computed(() => {
       const email = authStore.user.email;
-      const [localPart, domainPart] = email.split("@");
-      return localPart + "@" + domainPart.substring(0, 2) + "...";
-      // return localPart + '@' + domainPart.subString(0) + '...'
+      if (email.length < 14) {
+        const [localPart, domainPart] = email.split("@");
+        return localPart + "@" + domainPart.substring(0, 2) + "...";
+        // return localPart + '@' + domainPart.subString(0) + '...'
+      } else {
+        return email.substring(0, 14);
+      }
     });
 
     const handleLogout = async () => {
-        await authStore.logout()
-        router.push({name: 'Login'})
-    }
+      await authStore.logout();
+      router.push({ name: "Login" });
+    };
 
     return {
       closeModal,

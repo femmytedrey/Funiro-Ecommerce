@@ -20,6 +20,7 @@
           View Product
         </router-link>
         <button
+        @click="addToCart(product._id, 1)"
           class="px-10 text-xs mobile:text-sm font-semibold text-white hover:text-primary transition-all duration-300 ease-in-out"
         >
           Add to cart
@@ -115,6 +116,8 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useProductsStore } from "../Store/productStore";
+import { useCartStore } from "../Store/useCartStore";
+import { useAuthStore } from "../Store/auth.store";
 
 export default {
   props: {
@@ -131,6 +134,22 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const productsStore = useProductsStore();
+    const cartStore = useCartStore();
+    const authStore = useAuthStore();
+
+    const addToCart = async (productId, quantity) => {
+      if (!authStore.isAuthenticated) {
+        alert("Please log in to add items to cart");
+        router.push("/auth/login");
+        return;
+      }
+      try {
+        await cartStore.addToCart(productId, quantity);
+        console.log("Product added successfully");
+      } catch (error) {
+        console.log(cartStore.error);
+      }
+    };
 
     const isHover = ref(null);
 
@@ -140,7 +159,9 @@ export default {
 
     const currentPage = computed(() => productsStore.currentPage);
 
-    const paginatedProduct = computed(() => productsStore.paginatedProduct(props.itemsPerPage))
+    const paginatedProduct = computed(() =>
+      productsStore.paginatedProduct(props.itemsPerPage)
+    );
 
     const totalPages = computed(() =>
       productsStore.totalPages(props.itemsPerPage)
@@ -152,17 +173,17 @@ export default {
     };
 
     const nextPage = () => {
-      productsStore.nextPage(props.itemsPerPage)
-      updateRoute(productsStore.currentPage)
+      productsStore.nextPage(props.itemsPerPage);
+      updateRoute(productsStore.currentPage);
     };
 
     const prevPage = () => {
-      productsStore.prevPage(props.itemsPerPage)
-      updateRoute(productsStore.currentPage)
+      productsStore.prevPage(props.itemsPerPage);
+      updateRoute(productsStore.currentPage);
     };
 
     const gotoPage = (page) => {
-      productsStore.gotoPage(page)
+      productsStore.gotoPage(page);
       updateRoute(page);
     };
 
@@ -173,7 +194,9 @@ export default {
       }
     );
 
-    const visiblePages = computed(() => productsStore.visiblePages(props.maxVisiblePages, props.itemsPerPage));
+    const visiblePages = computed(() =>
+      productsStore.visiblePages(props.maxVisiblePages, props.itemsPerPage)
+    );
 
     return {
       paginatedProduct,
@@ -184,6 +207,7 @@ export default {
       prevPage,
       gotoPage,
       visiblePages,
+      addToCart,
     };
   },
 };

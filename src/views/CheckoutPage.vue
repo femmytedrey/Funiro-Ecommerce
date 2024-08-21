@@ -1,23 +1,17 @@
 <template>
   <div
-    class="bg relative py-32 mb-20 flex flex-col justify-center items-center"
+    class="bg relative py-32 mb-9 flex flex-col justify-center items-center"
   >
     <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-0"></div>
-
     <div class="z-10 text-center space-y-3">
-      <p class="text-4xl font-medium ">Shop</p>
-      <p class="text-xl">Explore our new trends</p>
+      <p class="text-4xl font-medium">Checkout</p>
+      <p class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
     </div>
   </div>
-  <ProductGrid />
 </template>
 
 <script>
-import ProductGrid from "../components/ShopComponents/ProductGrid.vue";
 export default {
-  components: {
-    ProductGrid,
-  },
 };
 </script>
 

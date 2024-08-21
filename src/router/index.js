@@ -51,6 +51,21 @@ const routes = [
     name: "ProductDetail",
     component: () => import("../components/HomeComponents/ProductDetail.vue"),
   },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: () => import("../views/CartPage.vue"),
+  },
+  {
+    path: "/checkout",
+    name: "Checkout",
+    component: () => import("../views/CheckoutPage.vue"),
+  },
+  {
+    path: "/search-results",
+    name: "SearchResults",
+    component: () => import('../views/SearchResults.vue')
+  },
 ];
 
 const router = createRouter({
@@ -58,7 +73,7 @@ const router = createRouter({
   routes,
   scrollBehavior() {
     return { top: 0 };
-  }
+  },
 });
 
 router.beforeEach((to, from, next) => {

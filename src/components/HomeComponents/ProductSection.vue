@@ -25,6 +25,7 @@
             View Product
           </router-link>
           <button
+            @click="addToCart(product._id, 1)"
             class="px-10 text-xs mobile:text-sm font-semibold text-white hover:text-primary transition-all duration-300 ease-in-out"
           >
             Add to cart
@@ -36,7 +37,6 @@
               <p><i class="fa-regular fa-share-from-square text-thin"></i></p>
               Share
             </button>
-            <!-- <div>Compare</div> -->
             <button
               class="transition-all ease-in-out duration-300 gap-x-1 hover:gap-x-2 flex"
             >
@@ -83,13 +83,19 @@
 
 <script>
 import { computed, onMounted, ref } from "vue";
+import { useCartStore } from "../Store/useCartStore";
 import { useProductsStore } from "../Store/productStore";
-// import { ProductImageData } from "../../assets/ProductImageData";
+import { useAuthStore } from "../Store/auth.store";
+import { useRouter } from "vue-router";
+
 export default {
   setup() {
     const isHover = ref(null);
     const showMore = ref(4);
     const productStore = useProductsStore();
+    const cartStore = useCartStore();
+    const authStore = useAuthStore();
+    const router = useRouter();
 
     onMounted(() => {
       productStore.fetchProducts();
@@ -99,9 +105,26 @@ export default {
       productStore.displayProducts(showMore.value)
     );
 
+    const addToCart = async (productId, quantity) => {
+      if (!authStore.isAuthenticated) {
+        alert("Please log in to add items to cart");
+        router.push("/auth/login");
+        return;
+      }
+
+      try {
+        await cartStore.addToCart(productId, quantity);
+        console.log("Product added to cart successfully");
+      } catch (error) {
+        console.log(cartStore.error);
+      }
+    };
+
     return {
       isHover,
       displayProducts,
+      addToCart,
+      cartStore, // Expose cartStore to the template
     };
   },
 };
