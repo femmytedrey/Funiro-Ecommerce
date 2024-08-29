@@ -198,7 +198,7 @@
             ]"
             @click="openCart"
           >
-            <div class="h-full" @click.stop>
+            <div @click.stop>
               <ShoppingCart @closeSidebar="closeCart" />
             </div>
           </div>
