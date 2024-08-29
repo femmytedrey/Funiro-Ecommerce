@@ -2,7 +2,7 @@
   <div
     class="w-[300px] xl:w-[350px] 2xl:w-[400px] bg-white overflow-y-auto h-screen flex flex-col"
   >
-    <div class="flex items-start px-3 pt-4">
+    <div class="h-full flex items-start px-3 pt-4">
       <h1 class="text-xl 2xl:text-2xl pb-5 border-b flex-1 border-black/20 font-medium">
         Shopping Cart
       </h1>
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="py-3 pb-10 flex flex-col gap-y-2 px-3 border-t ">
+    <div class="py-3 flex flex-col gap-y-2 px-3 border-t ">
       <div class="text-sm 2xl:text-lg flex gap-x-10">
         <p>Subtotal</p>
         <p class="text-primary font-semibold">

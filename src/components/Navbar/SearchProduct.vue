@@ -24,6 +24,7 @@
       >
         <input
           type="text"
+          ref="searchInput"
           v-model="searchQuery"
           @keyup.enter="triggerSearch"
           placeholder="enter keyword"
@@ -52,16 +53,24 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
 import { useRouter } from 'vue-router';
 export default {
   setup() {
     const isSearchField = ref(false);
     const searchQuery = ref("")
     const router = useRouter()
+    const searchInput = ref(null)
+
+
 
     const toggleSearch = () => {
       isSearchField.value = !isSearchField.value;
+      if(isSearchField.value){
+        nextTick(() => {
+          searchInput.value.focus()
+        })
+      }
     };
 
     const triggerSearch = () => {
@@ -78,6 +87,7 @@ export default {
       isSearchField,
       searchQuery,
       triggerSearch,
+      searchInput,
     };
   },
 };

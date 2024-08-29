@@ -66,6 +66,16 @@
     </div>
   </div>
 
+  <!-- No Results Found Message -->
+  <div v-if="paginatedProduct.length === 0" class="no-results text-center">
+    <i class="fas fa-search fa-3x mb-4"></i>
+    <h2 class="text-2xl font-semibold mb-2">No Results Found</h2>
+    <p class="text-lg">
+      We couldn't find any results for "{{ searchQuery }}". Please try a
+      different search term.
+    </p>
+  </div>
+
   <div class="flex justify-center gap-x-3 my-8" v-if="totalPages > 1">
     <button
       @click="prevPage"
@@ -156,6 +166,12 @@ export default {
 
     const isHover = ref(null);
 
+    const searchAndUpdateProducts = () => {
+      productsStore.searchProduct(props.searchQuery);
+    };
+
+    watch(() => props.searchQuery, searchAndUpdateProducts);
+
     onMounted(() => {
       productsStore.searchProduct(props.searchQuery);
     });
@@ -191,11 +207,15 @@ export default {
     };
 
     watch(
-      () => route.query.page,
-      (newPage) => {
-        productsStore.gotoPage(parseInt(newPage) || 1);
-      }
-    );
+  () => route.query,
+  (newQuery) => {
+    if (newQuery.q !== props.searchQuery) {
+      router.push({ query: { ...newQuery, page: 1 } });
+    }
+    productsStore.gotoPage(parseInt(newQuery.page) || 1);
+  },
+  { deep: true }
+);
 
     const visiblePages = computed(() =>
       productsStore.visiblePages(props.maxVisiblePages, props.itemsPerPage)
