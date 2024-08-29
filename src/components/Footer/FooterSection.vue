@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex flex-col space-y-6 px-5 md:px-12 lg:px-24 border-t-[1.5px] relative mt-32 pt-28 md:pt-24 justify-center"
+    class="px-7 md:px-20 2xl:px-52 flex flex-col space-y-6 border-t-[1.5px] relative mt-32 pt-28 md:pt-24 justify-center"
   >
     <div
-      class="bg-black text-white w-[90%] lg:w-[80%] items-center md:w-[75%] justify-between gap-x-7 p-6 gap-y-4 mx-auto absolute top-[-20%] lg:top-[-15%] xl:top-[-18%] rounded-2xl left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row"
+      class="bg-black text-white w-[90%] lg:w-[80%] 2xl:w-[70%] items-center md:w-[75%] justify-between gap-x-7 p-6 gap-y-4 mx-auto absolute top-[-20%] lg:top-[-15%] xl:top-[-18%] rounded-2xl left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row"
     >
       <div
         class="text-2xl lg:text-3xl font-semibold uppercase text-center md:text-left"

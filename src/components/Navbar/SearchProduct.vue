@@ -1,8 +1,8 @@
 <template>
-  <div class="relative flex gap-x-2 items-center">
+  <div class="relative flex gap-x-2 items-center w-8 justify-center">
     <!-- the hidden that's in this div -->
-    <div
-      class="hidden md:flex gap-x-1 outline-none rounded-3xl border bg-primaryLight w-[250px] transition-opacity duration-300"
+    <!-- <div
+      class="hidden md:flex gap-x-1 outline-none rounded-3xl border bg-primaryLight w-[220px] transition-opacity duration-300"
       :class="{'opacity-0 invisible': !isSearchField, 'opacity-100 visible': isSearchField}"
     >
       <input
@@ -15,11 +15,11 @@
       <button @click="triggerSearch" class="bg-primary text-white rounded-full px-3">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-    </div>
+    </div> -->
 
-    <div class="absolute top-9 -right-20 md:hidden">
+    <div class="absolute top-9 md:top-14 -right-8 md:right-2">
       <div
-        class="flex gap-x-1 outline-none rounded-3xl border bg-primaryLight w-[250px]"
+        class="flex gap-x-1 outline-none rounded-3xl border bg-primaryLight w-[250px] shadow-xl drop-shadow-xl"
         v-if="isSearchField"
       >
         <input

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg relative py-32 mb-20 flex flex-col justify-center items-center"
+    class="bg px-7 md:px-20 2xl:px-52 relative py-32 mb-20 flex flex-col justify-center items-center"
   >
     <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-0"></div>
 

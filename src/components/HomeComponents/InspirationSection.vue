@@ -1,6 +1,6 @@
 <template>
   <div class="bg-primaryLight flex  py-10 flex-col lg:flex-row gap-y-6">
-    <div class="w-[100%] pl-6 pr-0 lg:pr-10 lg:pl-20 items-center text-center lg:w-[45%] flex flex-col justify-center lg:items-start lg:text-left">
+    <div class="w-[100%] pl-7 md:pl-20 2xl:pl-52 pr-0 lg:pr-10 items-center text-center lg:w-[45%] flex flex-col justify-center lg:items-start lg:text-left">
       <p class="text-2xl lg:text-4xl font-semibold pb-2">50+ Beautiful rooms inspiration</p>
       <p class="text-sm pb-4 lg:pb-6">
         Our designer already made a lot of beautiful prototype of rooms that

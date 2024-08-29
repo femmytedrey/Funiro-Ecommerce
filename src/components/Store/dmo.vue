@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-7 md:px-20 2xl:px-52">
     <button @click="fetchCartItems">Fetch Cart</button>
     <div v-if="isLoading">Loading...</div>
     <div v-if="error">{{ error.message }}</div>

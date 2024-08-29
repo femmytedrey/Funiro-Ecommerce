@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="product && !loading"
-    class="flex px-6 xl:px-20 pt-28 sm:pt-10 xl:py-12 gap-x-8 xl:gap-x-12 flex-col sm:flex-row w-full"
+    class="flex px-7 md:px-20 2xl:px-52 pt-28 sm:pt-10 xl:py-12 gap-x-8 xl:gap-x-12 flex-col sm:flex-row w-full"
   >
     <div
       class="flex flex-col xl:flex-row gap-x-7 gap-y-4 h-fit sm:w-[50%] w-full"

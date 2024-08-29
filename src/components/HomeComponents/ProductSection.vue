@@ -5,14 +5,14 @@
     </div>
 
     <div
-      class="px-7 md:px-20 grid grid-cols-2 sm:grid-cols-2 midBreak:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-7 gap-y-4 md:gap-y-7 cursor-pointer pb-10"
+      class="px-7 md:px-20 2xl:px-52 grid grid-cols-2 sm:grid-cols-2 midBreak:grid-cols-3 xl:grid-cols-4 gap-x-4 md:gap-x-7 gap-y-4 md:gap-y-7 cursor-pointer pb-10"
     >
       <div
         v-for="(product, index) in displayProducts"
         :key="product._id"
         @mouseenter="isHover = index"
         @mouseleave="isHover = null"
-        class="h-[210px] mobile:h-[320px] midBreak:h-[260px] nextMidBreak:h-[280px] md:h-[320px] mlg:h-[350px] midBreak:w-[200px] nextMidBreak:w-[220px] md:w-[230px] mlg:w-[260px] flex flex-col bg-[#F4F5F7] shadow-lg hover:scale-100 md:hover:scale-110 transition-all duration-300 ease-in-out hover:z-50 relative overflow-hidden"
+        class="h-[210px] mobile:h-[320px] midBreak:h-[260px] nextMidBreak:h-[280px] md:h-[320px] mlg:h-[350px] midBreak:w-[200px] nextMidBreak:w-[220px] md:w-[230px] mlg:w-[260px] flex flex-col bg-[#F4F5F7] shadow-lg hover:scale-100 md:hover:scale-105 transition-all duration-300 ease-in-out hover:z-50 relative overflow-hidden"
       >
         <div
           :class="isHover === index ? 'translate-y-0' : '-translate-y-full'"

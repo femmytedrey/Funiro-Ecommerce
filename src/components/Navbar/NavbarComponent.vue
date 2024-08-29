@@ -1,9 +1,9 @@
 <template>
   <div class="fixed sm:relative bg-white w-full z-[90]">
     <nav
-      class="py-5 px-5 md:px-20 flex justify-between items-center shadow relative"
+      class="py-5 px-7 md:px-20 2xl:px-52 flex justify-between items-center shadow relative"
     >
-      <div class="flex items-center gap-x-3">
+      <div class="flex items-center gap-x-3 pr-16">
         <!-- hamburger menu -->
         <div class="inline-block lg:hidden text-2xl cursor-pointer">
           <i class="fa-solid fa-bars" @click="toggleMenu"></i>

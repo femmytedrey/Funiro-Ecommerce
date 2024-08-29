@@ -1,7 +1,7 @@
 <template>
   <div class="text-primaryText mt-[4.8rem] sm:mt-0">
     <!-- Header -->
-    <header class="bg-primary py-4 text-white shadow-md px-7 md:px-20">
+    <header class="bg-primary py-4 text-white shadow-md px-7 md:px-20 2xl:px-52">
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-2xl font-semibold">Dashboard</h1>
         <button @click="handleLogout" class="bg-white text-primary py-2 px-4 rounded-xl hover:bg-primaryLight transition">
@@ -11,7 +11,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto py-10 px-7 md:px-20"> 
+    <main class="container mx-auto py-10 px-7 md:px-20 2xl:px-52"> 
       <!-- Welcome Section -->
       <section class="mb-10">
         <p class="text-3xl font-semibold">Welcome back, {{ authUser.user.firstName }}!</p>

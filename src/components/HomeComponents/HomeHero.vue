@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-cover h-[550px] import-img">
+  <div class="bg-cover h-[550px] import-img px-7 md:px-20 2xl:px-52">
     <div
       class="w-full h-full flex justify-center md:justify-end items-center px-8 lg:pe-16"
     >
