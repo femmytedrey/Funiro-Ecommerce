@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 export const useProductsStore = defineStore("products", {
   state: () => ({
     products: JSON.parse(sessionStorage.getItem("products")) || [],
+    relatedProducts: [],
     loading: false,
     error: null,
     currentPage: parseInt(sessionStorage.getItem("currentPage")) || 1,
@@ -24,17 +25,41 @@ export const useProductsStore = defineStore("products", {
       }
     },
 
-    async searchProduct(searchQuery) {
+    getRelatedProducts(category, currentProductId, limit = 4) {
       this.loading = true;
       try {
-        const response = await axios.get(`${process.env.VUE_APP_BASE_URL}/products/search?q=${searchQuery}`);
-        this.products = response.data;
+        // Filter products by category and exclude the current product
+        const filteredProducts = this.products.filter(
+          (product) =>
+            product.category === category && product._id !== currentProductId
+        );
+
+        // Randomly shuffle the filtered products
+        const shuffled = [...filteredProducts].sort(() => 0.5 - Math.random());
+
+        // Select the specified number of related products
+        this.relatedProducts = shuffled.slice(0, limit);
       } catch (error) {
-        console.error('Error fetching search results:', error.message);
+        console.error("Error getting related products:", error.message);
+        this.error = error.message;
       } finally {
         this.loading = false;
       }
-    },    
+    },
+
+    async searchProduct(searchQuery) {
+      this.loading = true;
+      try {
+        const response = await axios.get(
+          `${process.env.VUE_APP_BASE_URL}/products/search?q=${searchQuery}`
+        );
+        this.products = response.data;
+      } catch (error) {
+        console.error("Error fetching search results:", error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
 
     async fetchProduct(productId) {
       this.loading = true;

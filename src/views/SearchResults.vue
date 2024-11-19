@@ -1,5 +1,7 @@
 <template>
-  <div class="bg relative py-32 mb-20 flex flex-col justify-center items-center">
+  <div
+    class="bg relative py-28 mb-20 flex flex-col justify-center items-center"
+  >
     <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-0"></div>
 
     <div class="z-10 text-center space-y-3">
@@ -22,7 +24,7 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const searchQuery = computed(() => route.query.q || '');
+    const searchQuery = computed(() => route.query.q || "");
 
     return {
       searchQuery,

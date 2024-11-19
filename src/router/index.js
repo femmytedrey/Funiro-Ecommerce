@@ -23,6 +23,11 @@ const routes = [
     component: () => import("../views/ContactPage.vue"),
   },
   {
+    path: "/admin",
+    name: "Admin",
+    component: () => import("../views/AdminPage.vue"),
+  },
+  {
     path: "/auth/login",
     name: "Login",
     component: () => import("../views/auth/LoginPage.vue"),
@@ -34,6 +39,14 @@ const routes = [
     path: "/auth/register",
     name: "Register",
     component: () => import("../views/auth/SignupPage.vue"),
+    meta: {
+      requireAuth: false,
+    },
+  },
+  {
+    path: "/auth/forgot-password",
+    name: "ResetEmail",
+    component: () => import("../views/auth/sendPasswordReset.vue"),
     meta: {
       requireAuth: false,
     },
@@ -55,11 +68,37 @@ const routes = [
     path: "/cart",
     name: "Cart",
     component: () => import("../views/CartPage.vue"),
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: "/checkout",
     name: "Checkout",
     component: () => import("../views/CheckoutPage.vue"),
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
+    path: "/checkout/success",
+    name: "Success",
+    component: () => import("../views/PaymentResponse/SuccessPage.vue"),
+  },
+  {
+    path: "/checkout/fail",
+    name: "Fail",
+    component: () => import("../views/PaymentResponse/FailedPage.vue"),
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: () => import("../views/Orders/OrdersPage.vue"),
+  },
+  {
+    path: "/orders/:id",
+    name: "OrderDetails",
+    component: () => import("../views/Orders/OrderDetails.vue"),
   },
   {
     path: "/search-results",

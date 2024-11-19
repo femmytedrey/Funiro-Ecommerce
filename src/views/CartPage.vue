@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg px-7 md:px-20 2xl:px-52 relative py-32 mb-11 flex flex-col justify-center items-center"
+    class="bg px-7 md:px-20 2xl:px-52 relative py-28 mb-11 flex flex-col justify-center items-center"
   >
     <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-0"></div>
     <div class="z-10 text-center space-y-3">
@@ -82,6 +82,7 @@
 <script>
 import { useCartStore } from "@/components/Store/useCartStore";
 import { onMounted } from "vue";
+import { formatCurrency } from "@/utils/formatters";
 export default {
   setup() {
     const cartStore = useCartStore();
@@ -96,13 +97,6 @@ export default {
       try {
         cartStore.deleteItem(productId);
       } catch (error) {}
-    };
-
-    const formatCurrency = (amount) => {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
     };
 
     onMounted(() => {

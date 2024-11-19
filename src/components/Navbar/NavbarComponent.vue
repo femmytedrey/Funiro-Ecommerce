@@ -1,7 +1,7 @@
 <template>
   <div class="fixed sm:relative bg-white w-full z-[90]">
     <nav
-      class="py-5 px-7 md:px-20 2xl:px-52 flex justify-between items-center shadow relative"
+      class="py-5 xl:py-6 2xl:py-8 px-7 md:px-20 2xl:px-52 flex justify-between items-center shadow relative"
     >
       <div class="flex items-center gap-x-3 pr-16">
         <!-- hamburger menu -->
@@ -12,8 +12,8 @@
           :to="{ name: 'Home' }"
           class="flex gap-x-2 items-center cursor-pointer"
         >
-          <img src="../../assets/logo.png" alt="logo" class="w-10" />
-          <p class="text-3xl font-semibold">Funiro</p>
+          <img src="../../assets/logo.png" alt="logo" class="w-12" />
+          <p class="text-3xl 2xl:text-4xl font-semibold">Funiro</p>
         </router-link>
       </div>
 
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div
-            class="flex flex-col lg:flex-row gap-x-8 text-primaryText font-medium"
+            class="flex flex-col lg:flex-row gap-x-8 text-primaryText font-medium text-[1.2rem] 2xl:text-[1.4rem]"
           >
             <router-link
               :to="{ name: 'Home' }"
@@ -120,6 +120,25 @@
                 v-if="isMobile"
               ></i>
               <p>Contact</p>
+            </router-link>
+            <router-link
+              :to="{ name: 'Admin' }"
+              @click="toggleMenu"
+              v-if="isAuthenticated && authStore.user && authStore.user.isAdmin"
+              :class="[
+                'flex items-center gap-x-3 lg:inline-block lg:pl-0 p-4 lg:p-0 transition ease-in-out duration-300 hover:bg-gray-100 lg:hover:bg-transparent lg:pb-0 hover:text-primary ps-5',
+                isActiveRoute('Admin')
+                  ? `text-primary font-bold ${
+                      isMobile ? 'bg-primaryLight' : ''
+                    }`
+                  : '',
+              ]"
+            >
+              <i
+                class="fa-solid fa-house-chimney text-2xl lg:hidden"
+                v-if="isMobile"
+              ></i>
+              <p>Admin</p>
             </router-link>
           </div>
         </div>
@@ -198,7 +217,7 @@
             ]"
             @click="openCart"
           >
-            <div @click.stop>
+            <div class="h-full" @click.stop>
               <ShoppingCart @closeSidebar="closeCart" />
             </div>
           </div>

@@ -7,6 +7,8 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  fetchSignInMethodsForEmail,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -69,7 +71,7 @@ export const useAuthStore = defineStore("auth", {
           userData.email,
           userData.password
         );
-        
+
         const idToken = await user.getIdToken(true);
 
         this.user = {
@@ -144,6 +146,7 @@ export const useAuthStore = defineStore("auth", {
         };
 
         const idToken = await user.getIdToken(true);
+        console.log(idToken)
 
         await this.updateUser(this.user, idToken);
 
@@ -181,6 +184,20 @@ export const useAuthStore = defineStore("auth", {
         this.loading = false;
       }
     },
+
+    async resetPassword(email) {
+      this.clearErrors();
+      this.loading = true;
+      try {
+        await sendPasswordResetEmail(auth, email);
+        console.log("Password reset link sent successfully")
+      } catch (error) {
+        this.handleFirebaseError(error.code);
+      } finally {
+        this.loading = false;
+      }
+    },
+
 
     async signInWithGoogle() {
       try {
@@ -296,6 +313,7 @@ export const useAuthStore = defineStore("auth", {
                 email: user.email,
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
+                isAdmin: response.data.isAdmin
               };
               Cookies.set(USER_DATA_COOKIE_NAME, JSON.stringify(this.user), {
                 expires: 7,

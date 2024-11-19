@@ -2,7 +2,7 @@
   <div
     class="min-h-screen flex items-center justify-center flex-col bg-gray-50 img-space px-5 space-y-5"
   >
-    <div class="bg-white/90 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
+    <div class="bg-white/95 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6">
       <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
       <GoogleAuthBtn />
       <div class="relative">
@@ -41,13 +41,19 @@
 
         <AuthButtons btnText="Login" />
 
-        <div class="text-center">
+        <div class="text-center cursor-default">
           Don't have an account?
           <router-link to="/auth/register" class="text-primary hover:underline">
             Sign Up
           </router-link>
         </div>
       </form>
+      <div class="text-center">
+        <p class="cursor-default">Forgot your password? <router-link to="/auth/forgot-password" class="text-primary hover:underline"
+          > Click here to reset it</router-link
+        ></p>
+        
+      </div>
     </div>
     <button @click="goBack" class="underline text-white px-12 py-2">
       <i class="fas fa-arrow-left w-6 h-6"></i>Go Back
@@ -66,7 +72,7 @@ import InputField from "../../components/ReusableComponent/InputField.vue";
 import AuthButtons from "../../components/ReusableComponent/AuthButtons.vue";
 import { useAuthStore } from "../../components/Store/auth.store.js";
 import { mapState } from "pinia";
-import GoogleAuthBtn from "./GoogleAuthBtn"
+import GoogleAuthBtn from "./GoogleAuthBtn";
 
 export default {
   components: {
