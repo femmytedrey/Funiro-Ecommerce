@@ -164,7 +164,8 @@ export const useCheckoutStore = defineStore("checkout", {
       try {
         const idToken = await this.getIdToken();
         const response = await axios.delete(
-          `${process.env.VUE_APP_BASE_URL}/checkout/${checkoutId}`, {
+          `${process.env.VUE_APP_BASE_URL}/checkout/${checkoutId}`,
+          {
             headers: {
               Authorization: `Bearer ${idToken}`,
             },

@@ -112,9 +112,6 @@
         </div>
       </div>
 
-      {{ selectedCountry.name }}
-      {{ selectedState.name }}
-
       <InputField
         label="City"
         placeholder="e.g New York"
@@ -264,7 +261,7 @@ import { Country, State, City } from "country-state-city";
 import { formatCurrency } from "@/utils/formatters";
 import { useCheckoutStore } from "@/components/Store/checkout.store";
 import { useAuthStore } from "@/components/Store/auth.store";
-import { validateCheckout } from "@/utils/validation";
+import { useRouter } from "vue-router";
 
 const firstName = ref("");
 const lastName = ref("");
@@ -279,7 +276,8 @@ const selectedCountry = ref("");
 const selectedState = ref("");
 const selectedPaymentMethod = ref("card");
 const authUser = useAuthStore();
-console.log(authUser.user);
+
+const router = useRouter()
 
 const validationError = ref({});
 
@@ -295,17 +293,11 @@ onMounted(async () => {
   email.value = auth.user.email || "";
 });
 
-console.log(checkout.checkouts, "is it real");
 
 // Get all countries
 const countries = computed(() => {
   return Country.getAllCountries();
 });
-
-onUpdated(() => {
-  console.log(selectedState.value, 'it is selected right here')
-  console.log(selectedCountry.value, 'it is selected right here')
-})
 
 // Get states based on selected country
 const states = computed(() => {
@@ -328,15 +320,11 @@ const handlePlaceOrder = async () => {
       zipCode: zipCode.value,
       additionalInformation: additionalInformation.value || "",
     };
-
-    console.log('Sending delivery details:', deliveryDetails);
     
     const result = await checkout.createCheckout(
       deliveryDetails,
       selectedPaymentMethod.value
     );
-
-    console.log('Checkout result:', result);
 
     if (result.success) {
       if (selectedPaymentMethod.value === "card") {
@@ -346,12 +334,12 @@ const handlePlaceOrder = async () => {
         }
       } else {
         // Handle cash on delivery
-        navigateTo('/order-success', { 
-          query: { orderId: result.checkout._id }
-        });
+        router.push({
+          path: "/checkout/success",
+          query: { orderId: result.checkout._id}
+        })
       }
     } else {
-      console.log('Validation errors:', result.validationErrors);
       validationError.value = result.validationErrors;
     }
   } catch (error) {

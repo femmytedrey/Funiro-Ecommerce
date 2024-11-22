@@ -28,6 +28,11 @@ const routes = [
     component: () => import("../views/AdminPage.vue"),
   },
   {
+    path: "/admin/demo",
+    name: "AdminDemo",
+    component: () => import("../views/../components/Admin/AdminDemo.vue"),
+  },
+  {
     path: "/auth/login",
     name: "Login",
     component: () => import("../views/auth/LoginPage.vue"),
@@ -60,6 +65,14 @@ const routes = [
     },
   },
   {
+    path: "/dashboard/demo",
+    name: "DashboardDemo",
+    component: () => import("../utils/DashboardDemo.vue"),
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
     path: "/product/:id",
     name: "ProductDetail",
     component: () => import("../components/HomeComponents/ProductDetail.vue"),
@@ -86,7 +99,7 @@ const routes = [
     component: () => import("../views/PaymentResponse/SuccessPage.vue"),
   },
   {
-    path: "/checkout/fail",
+    path: "/checkout/cancel",
     name: "Fail",
     component: () => import("../views/PaymentResponse/FailedPage.vue"),
   },

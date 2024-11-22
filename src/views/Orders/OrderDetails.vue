@@ -8,12 +8,12 @@
               <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                 <i class="fas fa-shopping-bag text-primary"></i>
               </div>
-              <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Order Details</h1>
+              <h1 class="text-xl sm:text-3xl font-bold text-gray-900 tracking-tight">Order Details</h1>
             </div>
             <p class="mt-2 text-sm text-gray-600 ml-13">Order #{{ orderDetails?._id?.slice(-8).toUpperCase() }}</p>
           </div>
           <button @click="router.push('/orders')" 
-            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+            class="inline-flex items-center px-2 sm:px-4  py-2 border border-gray-300 rounded-md shadow-sm text-xs font-medium text-gray-700 bg-white hover:bg-gray-50">
             <i class="fas fa-arrow-left mr-2"></i>
             Back to Orders
           </button>
@@ -43,7 +43,7 @@
           </div> -->
   
           <!-- Order Stats -->
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div v-for="(stat, index) in getOrderStats()" :key="index"
               class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div class="flex items-center justify-between">
@@ -59,7 +59,7 @@
           </div>
   
           <!-- Delivery Details -->
-          <div class="bg-white rounded-xl shadow-sm p-6">
+          <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6">
             <h2 class="text-xl font-semibold mb-6">Delivery Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-4">
@@ -99,7 +99,7 @@
           </div>
   
           <!-- Order Items -->
-          <div class="bg-white rounded-xl shadow-sm p-6">
+          <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6">
             <h2 class="text-xl font-semibold mb-6">Order Items</h2>
             <div class="space-y-4">
               <div v-for="item in orderDetails.cart.items" :key="item._id" 
@@ -120,7 +120,7 @@
             <div class="mt-6 pt-6 border-t">
               <div class="flex justify-end items-center space-x-4">
                 <span class="text-lg font-medium text-gray-500">Total Amount:</span>
-                <span class="text-2xl font-bold text-primary">
+                <span class="text-xl sm:text-2xl font-bold text-primary">
                   {{ formatCurrency(orderDetails.cart.total) }}
                 </span>
               </div>

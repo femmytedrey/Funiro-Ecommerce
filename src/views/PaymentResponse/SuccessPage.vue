@@ -37,7 +37,7 @@
 
     <!-- Order Details Section -->
     <div class="max-w-7xl mx-auto px-7 md:px-20 2xl:px-52 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Left Column: Order Summary -->
         <div
           class="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
@@ -50,7 +50,7 @@
           </div>
           <div class="space-y-2 md:space-y-3">
             <div
-              class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              class="flex justify-between flex-col md:flex-row items-start gap-y-2 md:items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <span class="text-gray-600 flex items-center">
                 <i class="fas fa-hashtag text-primary/70 mr-2"></i>
@@ -59,7 +59,7 @@
               <span class="font-medium">#{{ orderId }}</span>
             </div>
             <div
-              class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              class="flex justify-between flex-col md:flex-row items-start gap-y-2 md:items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <span class="text-gray-600 flex items-center">
                 <i class="fas fa-money-bill-wave text-primary/70 mr-2"></i>
@@ -68,7 +68,7 @@
               <span class="font-medium">{{ formatCurrency(orderAmount) }}</span>
             </div>
             <div
-              class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              class="flex justify-between flex-col md:flex-row items-start gap-y-2 md:items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <span class="text-gray-600 flex items-center">
                 <i class="fas fa-check-circle text-primary/70 mr-2"></i>
@@ -92,16 +92,16 @@
           </div>
           <div class="space-y-2 md:space-y-3">
             <div
-              class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              class="flex justify-between flex-col md:flex-row items-start gap-y-2 md:items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <span class="text-gray-600 flex items-center">
                 <i class="fas fa-map-marker-alt text-primary/70 mr-2"></i>
                 Delivery Address
               </span>
-              <span class="font-medium text-right">{{ shippingAddress }}</span>
+              <span class="font-medium text-left md:text-right max-w-full md:max-w-60">{{ shippingAddress }}</span>
             </div>
             <div
-              class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              class="flex justify-between flex-col md:flex-row items-start gap-y-2 md:items-center p-3 hover:bg-gray-50 rounded-lg transition-colors"
             >
               <span class="text-gray-600 flex items-center">
                 <i class="fas fa-clock text-primary/70 mr-2"></i>
@@ -163,6 +163,10 @@ onMounted(async () => {
   const sessionId = new URLSearchParams(window.location.search).get(
     "session_id"
   );
+  const directOrderId = new URLSearchParams(window.location.search).get(
+    "orderId"
+  );
+  console.log(directOrderId, "is this one");
 
   if (sessionId) {
     const { success, checkoutId } = await checkoutStore.getCheckoutSession(
@@ -176,15 +180,29 @@ onMounted(async () => {
 
       if (checkoutResponse.success && checkoutResponse.checkout) {
         const checkout = checkoutResponse.checkout;
-        console.log(checkout)
         orderId.value = checkout._id;
         orderAmount.value = checkout.cart.total;
         shippingAddress.value = `${checkout.deliveryDetails.shippingAddress}, ${checkout.deliveryDetails.city}, ${checkout.deliveryDetails.state}, ${checkout.deliveryDetails.country}`;
         paymentStatus.value = checkout.paymentStatus;
       }
     }
+  } else if (directOrderId) {
+    await populateOrderDetails(directOrderId);
   }
 });
+
+const populateOrderDetails = async (checkoutId) => {
+  const checkoutResponse = await checkoutStore.fetchSingleCheckout(checkoutId);
+
+  if (checkoutResponse.success && checkoutResponse.checkout) {
+    const checkout = checkoutResponse.checkout;
+    console.log(checkout);
+    orderId.value = checkout._id;
+    orderAmount.value = checkout.cart.total;
+    shippingAddress.value = `${checkout.deliveryDetails.shippingAddress}, ${checkout.deliveryDetails.city}, ${checkout.deliveryDetails.state}, ${checkout.deliveryDetails.country}`;
+    paymentStatus.value = checkout.paymentStatus;
+  }
+};
 </script>
 
 <style scoped></style>

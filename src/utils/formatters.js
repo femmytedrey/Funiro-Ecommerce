@@ -6,9 +6,17 @@ export const formatCurrency = (amount) => {
 };
 
 export const formatDate = (date) => {
-  return new Intl.DateTimeFormat("en-US", {
+  return new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(date);
+  });
 };
+
+// export const formatDate = (date) => {
+//   return new Intl.DateTimeFormat("en-US", {
+//     year: "numeric",
+//     month: "long",
+//     day: "numeric",
+//   }).format(date);
+// };

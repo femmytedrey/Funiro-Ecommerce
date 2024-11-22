@@ -42,7 +42,7 @@
           <div>{{ formatCurrency(item.quantity * item.product.price) }}</div>
 
           <div class="flex justify-center">
-            <button class="text-primary" @click="deleteItem(item.product._id)">
+            <button class="text-red-500" @click="deleteItem(item.product._id)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </div>

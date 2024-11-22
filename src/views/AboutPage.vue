@@ -8,39 +8,75 @@
     </div>
   </div>
 
-  <!-- Main Content Section with Responsive Cards -->
-  <div class="main-content px-6 midBreak:px-12 mlg:px-16 py-8 grid gap-8 md:grid-cols-2 mlg:grid-cols-3">
-    
-    <!-- Card: Our Story -->
-    <div class="card group hover:bg-primaryLight transition-colors duration-300 p-4 md:p-6 rounded-lg shadow-lg space-y-3">
-      <p class="text-2xl font-semibold text-primary group-hover:text-primaryDark transition-colors duration-300">Our Story</p>
-      <p class="text-sm midBreak:text-base text-textGrey group-hover:text-textGreyLight leading-relaxed transition-colors duration-300">
-        Born out of a passion for exceptional design, our journey began with a vision to redefine home furnishings. Through commitment and innovation, we have grown, always inspired by our customers' needs and aspirations.
-      </p>
-    </div>
+  <!-- Main Content Section with Enhanced Cards -->
+  <div class="container mx-auto px-7 md:px-20 2xl:px-52 py-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Story Card -->
+      <div class="group relative overflow-hidden rounded-2xl bg-white hover:bg-primaryLight/90 transition-all duration-500 shadow-lg hover:shadow-xl">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-110 transition-transform duration-500"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 rounded-full transform -translate-x-16 translate-y-16 group-hover:scale-110 transition-transform duration-500"></div>
+        
+        <div class="relative p-6 space-y-2">
+          <div class="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-all duration-500 shadow-md">
+            <i class="fas fa-book text-xl text-primary group-hover:scale-110"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-primary group-hover:text-primaryDark">Our Story</h3>
+          <p class="text-gray-600 leading-relaxed group-hover:text-gray-700">
+            Born out of a passion for exceptional design, our journey began with a vision to redefine home furnishings.
+          </p>
+          <a href="#" class="inline-flex items-center text-primary group-hover:text-primaryDark font-medium">
+            Learn More
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+          </a>
+        </div>
+      </div>
 
-    <!-- Card: Our Values -->
-    <div class="card group hover:bg-primaryLight transition-colors duration-300 p-4 md:p-6 rounded-lg shadow-lg space-y-3">
-      <p class="text-2xl font-semibold text-primary group-hover:text-primaryDark transition-colors duration-300">Our Values</p>
-      <p class="text-sm midBreak:text-base text-textGrey group-hover:text-textGreyLight leading-relaxed transition-colors duration-300">
-        Integrity, quality, and customer satisfaction are the pillars of our brand. We believe in offering only the best products, ensuring each item meets the highest standards of craftsmanship and design.
-      </p>
-    </div>
+      <!-- Values Card -->
+      <div class="group relative overflow-hidden rounded-2xl bg-white hover:bg-primaryLight/90 transition-all duration-500 shadow-lg hover:shadow-xl transform hover:-translate-y-2">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-110 transition-transform duration-500"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 rounded-full transform -translate-x-16 translate-y-16 group-hover:scale-110 transition-transform duration-500"></div>
+        
+        <div class="relative p-6 space-y-2">
+          <div class="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-all duration-500 shadow-md">
+            <i class="fas fa-heart text-xl text-primary group-hover:scale-110"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-primary group-hover:text-primaryDark">Our Values</h3>
+          <p class="text-gray-600 leading-relaxed group-hover:text-gray-700">
+            Integrity, quality, and customer satisfaction are the pillars of our brand.
+          </p>
+          <a href="#" class="inline-flex items-center text-primary group-hover:text-primaryDark font-medium">
+            Learn More
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+          </a>
+        </div>
+      </div>
 
-    <!-- Card: Our Vision -->
-    <div class="card group hover:bg-primaryLight transition-colors duration-300 p-4 md:p-6 rounded-lg shadow-lg space-y-3">
-      <p class="text-2xl font-semibold text-primary group-hover:text-primaryDark transition-colors duration-300">Our Vision</p>
-      <p class="text-sm midBreak:text-base text-textGrey group-hover:text-textGreyLight leading-relaxed transition-colors duration-300">
-        Looking ahead, our goal is to expand globally, bringing our unique approach to design and quality to homes around the world. We strive to be a leader in the home furnishing industry, setting trends and inspiring others.
-      </p>
+      <!-- Vision Card -->
+      <div class="group relative overflow-hidden rounded-2xl bg-white hover:bg-primaryLight/90 transition-all duration-500 shadow-lg hover:shadow-xl">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-110 transition-transform duration-500"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 rounded-full transform -translate-x-16 translate-y-16 group-hover:scale-110 transition-transform duration-500"></div>
+        
+        <div class="relative p-6 space-y-2">
+          <div class="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-all duration-500 shadow-md">
+            <i class="fas fa-eye text-xl text-primary group-hover:scale-110"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-primary group-hover:text-primaryDark">Our Vision</h3>
+          <p class="text-gray-600 leading-relaxed group-hover:text-gray-700">
+            Looking ahead, our goal is to expand globally, bringing our unique approach to design.
+          </p>
+          <a href="#" class="inline-flex items-center text-primary group-hover:text-primaryDark font-medium">
+            Learn More
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+          </a>
+        </div>
+      </div>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AboutPage',
+  name: 'AboutPage'
 };
 </script>
 
@@ -49,16 +85,12 @@ export default {
   background-image: url("@/assets/sofa.jpg");
   background-size: cover;
   background-position: center;
-  background-color: rgba(0, 0, 0, 0.3); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 @keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes slide-up {
@@ -78,20 +110,5 @@ export default {
 
 .animate-slide-up {
   animation: slide-up 1.5s ease-in-out;
-}
-
-.main-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.card {
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 </style>
