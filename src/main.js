@@ -9,6 +9,8 @@ import { useCartStore } from "./components/Store/useCartStore";
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
 import { useCheckoutStore } from "./components/Store/checkout.store";
+import { vScrollAnimate } from "./utils/animationUtils";
+import 'animate.css';
 
 const globalOptions = {
   mode: 'auto',
@@ -17,6 +19,7 @@ const globalOptions = {
 createApp(App)
   .use(createPinia())
   .use(router)
+  .directive('scroll-animate', vScrollAnimate)
   .use(VueTelInput, globalOptions)
   .mount("#app");
 
