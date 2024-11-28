@@ -2,8 +2,12 @@
   <div
     class="relative min-h-fit flex items-center justify-center flex-col bg-gray-50 img-space px-5 space-y-5"
   >
-  <div class="absolute min-h-screen backdrop-blur-sm w-full inset-0 z-10"></div>
-  <div class="bg-white/95 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6 z-20">
+    <div
+      class="absolute min-h-screen backdrop-blur-sm w-full inset-0 z-10"
+    ></div>
+    <div
+      class="bg-white/95 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6 z-20"
+    >
       <h2 class="text-2xl font-semibold text-center">Sign Up</h2>
       <GoogleAuthBtn />
       <div class="relative">
@@ -66,7 +70,10 @@
           </p>
         </div>
 
-        <AuthButtons :btnText="loading ? 'Signing up...' : 'Sign Up'" />
+        <AuthButtons
+          :btnText="loading ? 'Signing up...' : 'Sign Up'"
+          :shouldShake="shouldShake"
+        />
 
         <div class="text-center">
           Already have an account?
@@ -104,20 +111,35 @@ export default {
     AuthButtons,
     GoogleAuthBtn,
   },
+  data() {
+    return {
+      shouldShake: false,
+    };
+  },
   computed: {
     ...mapState(useAuthStore, ["errors", "loading", "user", "isAuthenticated"]),
   },
 
   mounted() {
-    const authStore = useAuthStore();
-    authStore.clearErrors();
+    const { clearErrors, user } = useAuthStore();
+    clearErrors();
+    user.firstName = "";
+    user.lastName = "";
+    user.email = "";
+    user.password = "";
   },
 
   methods: {
     async handleSignup() {
       const authStore = useAuthStore();
       await authStore.signup(this.user);
-      if (Object.keys(authStore.errors).length === 0) {
+
+      if (Object.keys(authStore.errors).length > 0) {
+        this.shouldShake = true;
+        setTimeout(() => {
+          this.shouldShake = false;
+        }, 1000);
+      } else {
         this.$router.push({ name: "Dashboard" });
       }
     },

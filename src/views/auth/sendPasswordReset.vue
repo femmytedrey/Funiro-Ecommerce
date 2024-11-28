@@ -2,8 +2,12 @@
   <div
     class="relative min-h-screen flex flex-col items-center justify-center bg-gray-50 img-space px-5 space-y-5"
   >
-  <div class="absolute min-h-screen backdrop-blur-sm w-full inset-0 z-10"></div>
-    <div class="bg-white/95 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6 z-20">
+    <div
+      class="absolute min-h-screen backdrop-blur-sm w-full inset-0 z-10"
+    ></div>
+    <div
+      class="bg-white/95 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6 z-20"
+    >
       <h2 class="text-2xl lg:text-3xl font-bold text-center text-gray-800 mb-6">
         Reset Your Password
       </h2>
@@ -20,12 +24,10 @@
           <p v-if="errors.email" class="text-red-600">
             {{ errors.email }}
           </p>
-          <p v-if="error" class="text-red-600">
-            Please provide your email
-          </p>
+          <p v-if="error" class="text-red-600">Please provide your email</p>
         </div>
 
-        <AuthButtons btnText="Send Reset Link" />
+        <AuthButtons btnText="Send Reset Link" :shouldShake="shouldShake" />
       </form>
     </div>
 
@@ -65,15 +67,27 @@ export default {
     return {
       error: false,
       email: "",
+      shouldShake: false,
     };
+  },
+  mounted() {
+    const { clearErrors, user } = useAuthStore();
+    clearErrors();
+    user.email = "";
   },
   methods: {
     async handleSend() {
-      if (!this.email) {
-        return this.error = true
-      }
-      this.error = false
       const authStore = useAuthStore();
+      if (!this.email) {
+        this.error = true;
+        this.shouldShake = true;
+        setTimeout(() => {
+          this.shouldShake = false;
+        }, 1000);
+        return;
+      }
+
+      this.error = false;
       authStore.resetPassword(this.email);
     },
     goBack() {

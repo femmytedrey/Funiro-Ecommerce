@@ -44,7 +44,10 @@
           </p>
         </div>
 
-        <AuthButtons :btnText="loading ? 'Logging in...' : 'Login'" />
+        <AuthButtons
+          :btnText="loading ? 'Logging in...' : 'Login'"
+          :shouldShake="shouldShake"
+        />
 
         <div class="text-center cursor-default">
           Don't have an account?
@@ -92,12 +95,19 @@ export default {
     AuthButtons,
     GoogleAuthBtn,
   },
+  data() {
+    return {
+      shouldShake: false,
+    };
+  },
 
   computed: { ...mapState(useAuthStore, ["errors", "loading", "user"]) },
 
   mounted() {
-    const authStore = useAuthStore();
-    authStore.clearErrors();
+    const { clearErrors, user } = useAuthStore();
+    clearErrors();
+    user.email = "";
+    user.password = "";
   },
 
   methods: {
@@ -105,7 +115,12 @@ export default {
       const authStore = useAuthStore();
       await authStore.login(this.user);
 
-      if (Object.keys(authStore.errors).length === 0) {
+      if (Object.keys(authStore.errors).length > 0) {
+        this.shouldShake = true;
+        setTimeout(() => {
+          this.shouldShake = false;
+        }, 1000);
+      } else {
         this.$router.push("/dashboard");
       }
     },
