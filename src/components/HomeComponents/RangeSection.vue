@@ -2,9 +2,10 @@
   <div class="space-y-2 lg:space-y-4 pt-9 md:pt-14 pb-6">
     <div
       class="space-y-3 text-center pb-6 lg:pb-9 px-3 sm:px-12 md:px-24 xl:px-56"
+      v-scroll-animate="'animate__fadeInLeft'"
     >
       <p class="font-semibold text-2xl lg:text-3xl">Browse The Range</p>
-      <p class="text-textGrey text-sm sm:text-lg">
+      <p class="text-textGrey text-sm sm:text-lg animate__slow" v-scroll-animate="'animate__fadeInLeft'">
         Find the perfect pieces to complement your home. Our curated collection
         offers quality and style for every taste.
       </p>

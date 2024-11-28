@@ -4,9 +4,14 @@
   >
     <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-0"></div>
 
-    <div class="z-10 text-center space-y-3">
-      <p class="text-4xl font-medium ">Shop</p>
-      <p class="text-xl">Explore our new trends</p>
+    <div
+      class="z-10 text-center space-y-3"
+      v-scroll-animate="'animate__fadeInUp'"
+    >
+      <p class="text-3xl mmd:text-4xl font-bold">Shop</p>
+      <p class="text-lg mmd:text-xl text-primaryText animate__slower" v-scroll-animate="'animate__fadeInUp'">
+        Explore our new trends
+      </p>
     </div>
   </div>
   <ProductGrid />

@@ -1,7 +1,7 @@
 <template>
   <button
     @click="continueWIthGoogle"
-    class="w-full bg-red-500 text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-red-600 transition duration-200"
+    class="w-full bg-red-500 text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-red-600 transition duration-200"
   >
     <i class="fab fa-google"></i> Continue with Google
   </button>

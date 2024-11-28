@@ -3,9 +3,9 @@
     <!-- Header Section -->
     <div class="header-section relative flex flex-col justify-center items-center py-24 mb-8 text-center">
       <div class="absolute inset-0 bg-primaryLight/60 backdrop-blur-sm"></div>
-      <div class="relative z-10 space-y-4">
-        <p class="text-3xl font-semibold">Get in Touch</p>
-        <p class="text-lg text-primaryText">We’d love to hear from you. Reach out to us for any inquiries or support.</p>
+      <div class="relative z-10 space-y-4" v-scroll-animate="'animate__fadeInUp'">
+        <p class="text-3xl mmd:text-4xl font-bold ">Get in Touch</p>
+        <p class="text-lg mmd:text-xl text-primaryText animate__slower" v-scroll-animate="'animate__fadeInUp'">We’d love to hear from you. Reach out to us for any inquiries or support.</p>
       </div>
     </div>
 

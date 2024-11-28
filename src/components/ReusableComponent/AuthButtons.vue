@@ -2,7 +2,7 @@
   <div class="mb-4">
     <button
       :type="type"
-      class="w-full bg-primary text-white py-2 rounded-lg hover:bg-[#9f761a] transition duration-200"
+      class="w-full bg-primary text-white py-3 rounded-lg hover:bg-[#9f761a] transition duration-200"
     >
       {{ btnText }}
     </button>

@@ -1,6 +1,7 @@
 <template>
-  <div class="bg-primaryLight flex  py-10 flex-col lg:flex-row gap-y-6">
-    <div class="w-[100%] pl-7 md:pl-20 2xl:pl-52 pr-0 lg:pr-10 items-center text-center lg:w-[45%] flex flex-col justify-center lg:items-start lg:text-left">
+  <div class="bg-primaryLight flex  py-10 flex-col lg:flex-row gap-y-6 overflow-hidden">
+    <div class="w-[100%] pl-7 md:pl-20 2xl:pl-52 pr-0 lg:pr-10 items-center text-center lg:w-[45%] flex flex-col justify-center lg:items-start lg:text-left"
+    v-scroll-animate="'animate__fadeInLeft'">
       <p class="text-2xl lg:text-4xl font-semibold pb-2">50+ Beautiful rooms inspiration</p>
       <p class="text-sm pb-4 lg:pb-6">
         Our designer already made a lot of beautiful prototype of rooms that
@@ -10,7 +11,7 @@
         Explore More
       </button>
     </div>
-    <div class="w-[100%] lg:w-[55%] py-0 px-0 relative flex justify-center items-center rounded-none lg:rounded-l-full overflow-hidden">
+    <div v-scroll-animate="'animate__fadeInRight'" class=" w-[100%] lg:w-[55%] py-0 px-0 relative flex justify-center items-center rounded-none lg:rounded-l-full overflow-hidden">
         <div class="flex relative w-full h-full justify-center">
             <img
           :src="currentImage.imgUrl"

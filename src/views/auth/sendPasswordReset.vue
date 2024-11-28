@@ -1,8 +1,9 @@
 <template>
   <div
-    class="min-h-screen flex flex-col items-center justify-center bg-gray-50 bg-auth-img px-5 space-y-5"
+    class="relative min-h-screen flex flex-col items-center justify-center bg-gray-50 img-space px-5 space-y-5"
   >
-    <div class="bg-white/95 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6">
+  <div class="absolute min-h-screen backdrop-blur-sm w-full inset-0 z-10"></div>
+    <div class="bg-white/95 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6 z-20">
       <h2 class="text-2xl lg:text-3xl font-bold text-center text-gray-800 mb-6">
         Reset Your Password
       </h2>
@@ -30,16 +31,18 @@
 
     <button
       @click="goBack"
-      class="text-white underline hover:text-gray-200 transition px-12 py-2"
+      class="text-white underline hover:text-gray-200 transition px-12 py-2 z-20"
     >
       <i class="fas fa-arrow-left mr-2"></i> Go Back
     </button>
 
     <div
       v-if="loading"
-      class="fixed inset-0 flex items-center justify-center bg-black/60"
+      class="z-30 -top-5 absolute inset-0 flex items-center justify-center bg-black/50"
     >
-      <div class="loader"></div>
+      <div
+        class="animate-spin rounded-full h-10 w-10 border-4 border-primary border-t-transparent"
+      ></div>
     </div>
   </div>
 </template>
@@ -81,9 +84,9 @@ export default {
 </script>
 
 <style scoped>
-.bg-auth-img {
+.img-space {
   background-image: url("../../assets/auth-bg.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
 }
 </style>

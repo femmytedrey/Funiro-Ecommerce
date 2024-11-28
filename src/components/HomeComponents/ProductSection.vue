@@ -1,5 +1,8 @@
 <template>
-  <div class="space-y-2 lg:space-y-4 pt-2 pb-6">
+  <div
+    class="space-y-2 lg:space-y-4 pt-2 pb-6"
+    v-scroll-animate="'animate__fadeInUp'"
+  >
     <div class="text-center pb-3 lg:pb-6 px-3">
       <p class="font-semibold text-2xl lg:text-3xl">Our Products</p>
     </div>

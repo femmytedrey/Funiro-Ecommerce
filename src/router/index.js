@@ -26,11 +26,19 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: () => import("../views/AdminPage.vue"),
+    meta: {
+      requireAuth: true,
+      requireAdmin: true,
+    }
   },
   {
     path: "/admin/demo",
     name: "AdminDemo",
     component: () => import("../views/../components/Admin/AdminDemo.vue"),
+    meta: {
+      requireAuth: true,
+      requireAdmin: true,
+    },
   },
   {
     path: "/auth/login",
@@ -116,7 +124,7 @@ const routes = [
   {
     path: "/search-results",
     name: "SearchResults",
-    component: () => import('../views/SearchResults.vue')
+    component: () => import("../views/SearchResults.vue"),
   },
 ];
 
@@ -130,6 +138,19 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
+
+  if (to.matched.some((record) => record.meta.requireAdmin)) {
+    if(!authStore.isAuthenticated){
+      alert("Authentication is required")
+      next('/auth/login')
+      return;
+    }
+    if (!authStore.user?.isAdmin) {
+      alert("You are not authorized to access this page");
+      next('/')
+      return;
+    }
+  }
 
   if (
     to.matched.some((record) => record.meta.requireAuth) &&

@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-cover h-[550px] import-img px-7 md:px-20 2xl:px-52 pt-20 sm:pt-0">
+  <div class="bg-cover h-[550px] import-img px-7 md:px-20 2xl:px-52 pt-20 sm:pt-0 overflow-hidden">
     <div
       class="w-full h-full flex justify-center md:justify-end items-center px-8 lg:pe-16"
     >
       <div
-        class="w-[100%] md:w-[65%] lg:w-[50%] xl:w-[45%] h-fit bg-[#fff3e3]/90 p-7 pt-10 pr-10"
+        class="w-[100%] md:w-[65%] lg:w-[50%] xl:w-[45%] h-fit bg-[#fff3e3]/90 p-7 pt-10 pr-10" v-scroll-animate="'animate__fadeInRight'"
       >
         <p class="font-semibold text-xs pb-2">New Arrival</p>
         <p

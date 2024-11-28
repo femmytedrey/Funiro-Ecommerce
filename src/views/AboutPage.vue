@@ -2,9 +2,9 @@
   <!-- Header Section with Background Overlay and Text Animation -->
   <div class="header-section relative flex flex-col justify-center items-center text-center py-24 mb-6">
     <div class="absolute inset-0 bg-primaryLight/60 backdrop-blur-sm"></div>
-    <div class="relative z-10 space-y-2">
-      <p class="text-3xl mmd:text-4xl font-bold tracking-wider animate-fade-in">About Us</p>
-      <p class="text-lg mmd:text-xl text-primaryText animate-slide-up">Discover our journey, values, and aspirations</p>
+    <div class="relative z-10 space-y-2" v-scroll-animate="'animate__fadeInUp'">
+      <p class="text-3xl mmd:text-4xl font-bold ">About Us</p>
+      <p class="text-lg mmd:text-xl text-primaryText animate__slower" v-scroll-animate="'animate__fadeInUp'">Discover our journey, values, and aspirations</p>
     </div>
   </div>
 
@@ -86,29 +86,5 @@ export default {
   background-size: cover;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.3);
-}
-
-@keyframes fade-in {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-@keyframes slide-up {
-  0% {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.animate-fade-in {
-  animation: fade-in 1.5s ease-in-out;
-}
-
-.animate-slide-up {
-  animation: slide-up 1.5s ease-in-out;
 }
 </style>
