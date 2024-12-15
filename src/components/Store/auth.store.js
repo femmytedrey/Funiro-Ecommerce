@@ -146,7 +146,7 @@ export const useAuthStore = defineStore("auth", {
         };
 
         const idToken = await user.getIdToken(true);
-        console.log(idToken)
+        //console.log(idToken)
 
         await this.updateUser(this.user, idToken);
 

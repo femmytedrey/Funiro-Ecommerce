@@ -51,6 +51,32 @@ export const useCheckoutStore = defineStore("checkout", {
       return user;
     },
 
+    async fetchAdminCheckout() {
+      this.isLoading = true;
+      this.error = null;
+      try {
+        const idToken = await this.getIdToken();
+        if (this.lastFetchedToken !== idToken) {
+          this.lastFetchedToken = idToken;
+
+          const response = await axios.get(
+            `${process.env.VUE_APP_BASE_URL}/admin/checkouts`,
+            {
+              headers: {
+                Authorization: `Bearer ${idToken}`,
+              },
+            }
+          );
+          this.checkouts = response?.data?.checkouts;
+        }
+      } catch (error) {
+        this.error = error.response?.data?.error;
+        this.checkouts = [];
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
     async fetchCheckout() {
       this.isLoading = true;
       this.error = null;
@@ -60,7 +86,7 @@ export const useCheckoutStore = defineStore("checkout", {
           this.lastFetchedToken = idToken;
 
           const response = await axios.get(
-            `${process.env.VUE_APP_BASE_URL}/checkout`,
+            `${process.env.VUE_APP_BASE_URL}/checkouts`,
             {
               headers: {
                 Authorization: `Bearer ${idToken}`,
@@ -84,13 +110,14 @@ export const useCheckoutStore = defineStore("checkout", {
       try {
         const idToken = await this.getIdToken();
         const response = await axios.get(
-          `${process.env.VUE_APP_BASE_URL}/checkout/${checkoutId}`,
+          `${process.env.VUE_APP_BASE_URL}/checkouts/${checkoutId}`,
           {
             headers: {
               Authorization: `Bearer ${idToken}`,
             },
           }
         );
+        
 
         return { success: true, checkout: response.data.checkout };
       } catch (error) {
@@ -109,7 +136,7 @@ export const useCheckoutStore = defineStore("checkout", {
       try {
         const idToken = await this.getIdToken();
         const response = await axios.post(
-          `${process.env.VUE_APP_BASE_URL}/checkout`,
+          `${process.env.VUE_APP_BASE_URL}/checkouts`,
           { deliveryDetails, paymentMethod },
           {
             headers: {
@@ -141,7 +168,7 @@ export const useCheckoutStore = defineStore("checkout", {
       try {
         const idToken = await this.getIdToken();
         const response = await axios.post(
-          `${process.env.VUE_APP_BASE_URL}/checkout/create-checkout-session`,
+          `${process.env.VUE_APP_BASE_URL}/checkouts/create-checkout-session`,
           { checkoutId },
           {
             headers: {
@@ -164,7 +191,7 @@ export const useCheckoutStore = defineStore("checkout", {
       try {
         const idToken = await this.getIdToken();
         const response = await axios.delete(
-          `${process.env.VUE_APP_BASE_URL}/checkout/${checkoutId}`,
+          `${process.env.VUE_APP_BASE_URL}/checkouts/${checkoutId}`,
           {
             headers: {
               Authorization: `Bearer ${idToken}`,
@@ -200,7 +227,7 @@ export const useCheckoutStore = defineStore("checkout", {
       try {
         const idToken = await this.getIdToken();
         const response = await axios.get(
-          `${process.env.VUE_APP_BASE_URL}/checkout/session/${sessionId}`,
+          `${process.env.VUE_APP_BASE_URL}/checkouts/session/${sessionId}`,
           {
             headers: {
               Authorization: `Bearer ${idToken}`,

@@ -277,7 +277,7 @@ const selectedState = ref("");
 const selectedPaymentMethod = ref("card");
 const authUser = useAuthStore();
 
-const router = useRouter()
+const router = useRouter();
 
 const validationError = ref({});
 
@@ -292,7 +292,6 @@ onMounted(async () => {
   lastName.value = auth.user.lastName || "";
   email.value = auth.user.email || "";
 });
-
 
 // Get all countries
 const countries = computed(() => {
@@ -315,12 +314,15 @@ const handlePlaceOrder = async () => {
       phone: phone.value,
       companyName: companyName.value || "",
       country: selectedCountry.value?.name,
-      state: typeof selectedState.value === 'object' ? selectedState.value.name : selectedState.value,
+      state:
+        typeof selectedState.value === "object"
+          ? selectedState.value.name
+          : selectedState.value,
       city: city.value,
       zipCode: zipCode.value,
       additionalInformation: additionalInformation.value || "",
     };
-    
+
     const result = await checkout.createCheckout(
       deliveryDetails,
       selectedPaymentMethod.value
@@ -328,26 +330,27 @@ const handlePlaceOrder = async () => {
 
     if (result.success) {
       if (selectedPaymentMethod.value === "card") {
-        const sessionResult = await checkout.createCheckoutSession(result.checkout._id);        
+        const sessionResult = await checkout.createCheckoutSession(
+          result.checkout._id
+        );
         if (sessionResult.success) {
           window.location.href = sessionResult.url;
         }
       } else {
         // Handle cash on delivery
         router.push({
-          path: "/checkout/success",
-          query: { orderId: result.checkout._id}
-        })
+          path: "/checkouts/success",
+          query: { orderId: result.checkout._id },
+        });
       }
     } else {
       validationError.value = result.validationErrors;
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     validationError.value = error.message;
   }
 };
-
 
 // onMounted(() => {
 //   checkout.fetchCheckout();

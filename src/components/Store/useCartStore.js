@@ -45,15 +45,14 @@ export const useCartStore = defineStore("cart", {
       this.isLoading = true;
       this.error = null;
 
-      
       try {
-          const idToken = await this.getIdToken();
+        const idToken = await this.getIdToken();
 
         if (this.lastFetchedToken !== idToken) {
-            this.lastFetchedToken = idToken;
-            
+          this.lastFetchedToken = idToken;
+
           const response = await axios.get(
-            `${process.env.VUE_APP_BASE_URL}/cart`,
+            `${process.env.VUE_APP_BASE_URL}/carts`,
             {
               headers: {
                 Authorization: `Bearer ${idToken}`,
@@ -62,11 +61,11 @@ export const useCartStore = defineStore("cart", {
           );
 
           this.cart = response?.data?.cart || {};
-        //   sessionStorage.setItem("cart", JSON.stringify(this.cart));
+          //   sessionStorage.setItem("cart", JSON.stringify(this.cart));
         }
       } catch (error) {
         this.error = error.response?.data?.error;
-        this.cart = {}
+        this.cart = {};
       } finally {
         this.isLoading = false;
       }
@@ -81,11 +80,10 @@ export const useCartStore = defineStore("cart", {
         const idToken = await this.getIdToken();
 
         const response = await axios.post(
-          `${process.env.VUE_APP_BASE_URL}/cart`,
+          `${process.env.VUE_APP_BASE_URL}/carts`,
           { productId, quantity },
           { headers: { Authorization: `Bearer ${idToken}` } }
         );
-
 
         this.cart = response?.data?.cart;
         //sessionStorage.setItem("cart", JSON.stringify(this.cart));
@@ -98,17 +96,20 @@ export const useCartStore = defineStore("cart", {
     },
 
     //delete an item from cart
-    async deleteItem(productId){
+    async deleteItem(productId) {
       this.isLoading = false;
-      this.error = null
+      this.error = null;
 
       try {
-        const idToken = await this.getIdToken()
-        const response = await axios.delete(`${process.env.VUE_APP_BASE_URL}/cart/${productId}`, {
-          headers: {
-            Authorization: `Bearer ${idToken}`
+        const idToken = await this.getIdToken();
+        const response = await axios.delete(
+          `${process.env.VUE_APP_BASE_URL}/carts/${productId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
           }
-        })
+        );
 
         this.cart = response?.data?.cart;
       } catch (error) {

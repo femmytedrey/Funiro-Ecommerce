@@ -105,11 +105,17 @@ const routes = [
     path: "/checkout/success",
     name: "Success",
     component: () => import("../views/PaymentResponse/SuccessPage.vue"),
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: "/checkout/cancel",
     name: "Fail",
     component: () => import("../views/PaymentResponse/FailedPage.vue"),
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: "/orders",

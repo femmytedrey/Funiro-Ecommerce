@@ -90,7 +90,7 @@
       <!-- Dynamic Content Area -->
       <main class="pt-20 p-4 lg:p-6">
         <!-- Dashboard Overview -->
-        <div v-if="currentSection === 'dashboard'" class="space-y-6">
+        <div v-if="currentSection === 'dashboard'" class="space-y-6 pt-12">
           <!-- Stats Grid -->
           <div
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
@@ -448,7 +448,7 @@ const initializeCharts = () => {
       datasets: [
         {
           label: "Revenue",
-          data: [30000, 25000, 35000, 32000, 40000, 45000],
+          data: [0, 0, 0, 0, 40000, 5000],
           borderColor: "#B88E2F",
           tension: 0.4,
         },
