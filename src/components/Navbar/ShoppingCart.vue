@@ -19,15 +19,15 @@
         :key="item._id"
       >
         <div class="h-14 w-14 2xl:h-20 2xl:w-20 bg-gray-300">
-          <img :src="item.product.images[0]" :alt="item.product.name" />
+          <img :src="item.product?.images[0]" :alt="item.product?.name" />
         </div>
         <div class="flex-1 flex flex-col py-2 gap-y-1">
-          <h1 class="text-sm 2xl:text-lg">{{ item.product.name }}</h1>
+          <h1 class="text-sm 2xl:text-lg">{{ item.product?.name }}</h1>
           <div class="flex gap-x-4 items-center">
             <p class="text-sm 2xl:text-lg">{{ item.quantity }}</p>
             <p class="text-[12px] 2xl:text-lg">X</p>
             <p class="text-[12px] 2xl:text-lg text-primary font-medium">
-              {{ formatCurrency(item.product.price) }}
+              {{ formatCurrency(item.product?.price) }}
             </p>
           </div>
         </div>
@@ -44,7 +44,6 @@
 
 
 
-    <!-- This is the part I'm talking about, the browser's base searchbar on iphone is covering it, even on android -->
     <div class="py-3 flex flex-col gap-y-2 px-3 border-t ">
       <div class="text-sm 2xl:text-lg flex gap-x-10">
         <p>Subtotal</p>

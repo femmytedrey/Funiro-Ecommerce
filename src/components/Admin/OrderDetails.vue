@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isModalOpen"
-    @click="closeModal"
+    @click.self="closeModal"
     class="fixed inset-0 bg-black/30 flex items-center justify-center z-[60] p-4"
   >
     <div
@@ -69,7 +69,7 @@
               </thead>
               <tbody
                 class="divide-y"
-                v-for="item in singleCheckout.cart.items"
+                v-for="item in singleCheckout.cart?.items"
                 :key="item._id"
               >
                 <tr>
@@ -93,7 +93,7 @@
                   <td colspan="3" class="px-4 py-3 text-right font-semibold">
                     Total
                   </td>
-                  <td class="px-4 py-3 text-right font-semibold">{{formatCurrency(singleCheckout.cart.total)}}</td>
+                  <td class="px-4 py-3 text-right font-semibold">{{formatCurrency(singleCheckout?.cart?.total)}}</td>
                 </tr>
               </tfoot>
             </table>
@@ -113,7 +113,7 @@
             </div>
             <div class="space-y-2">
               <p class="text-sm text-gray-600">Order Date</p>
-              <p class="font-medium">{{ formatDate(singleCheckout.updatedAt) }}</p>
+              <p class="font-medium">{{ formatDate(singleCheckout?.updatedAt) }}</p>
             </div>
           </div>
         </div>
@@ -136,24 +136,24 @@ const props = defineProps({
     required: true,
   },
 });
-onUpdated(() => {
-  console.log("Props received:", props.singleCheckout);
-  if (props.singleCheckout) {
-    console.log("Order ID:", props.singleCheckout._id);
-  } else {
-    console.log("Checkout data not available");
-  }
-});
+// onUpdated(() => {
+//   console.log("Props received:", props.singleCheckout);
+//   if (props.singleCheckout) {
+//     console.log("Order ID:", props.singleCheckout._id);
+//   } else {
+//     console.log("Checkout data not available");
+//   }
+// });
 
 const emit = defineEmits(["clsoe"]);
 const closeModal = () => {
   emit("close");
   document.body.style.overflow = "auto";
 };
-onUpdated(() => {
-  console.log("Full checkout:", props.singleCheckout);
-  console.log("Cart items:", props.singleCheckout?.cart?.items);
-});
+// onUpdated(() => {
+//   console.log("Full checkout:", props.singleCheckout);
+//   console.log("Cart items:", props.singleCheckout?.cart?.items);
+// });
 </script>
 
 <style></style>

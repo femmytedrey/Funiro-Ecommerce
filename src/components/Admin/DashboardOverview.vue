@@ -130,7 +130,7 @@
               </td>
               <td class="px-6 py-4 text-sm text-gray-500">#{{ order._id }}</td>
               <td class="px-6 py-4 text-sm font-medium text-gray-900">
-                ${{ order.cart.total }}
+                ${{ order.cart?.total }}
               </td>
               <td class="px-6 py-4">
                 <span :class="getStatusBadgeClass(order.paymentStatus)">
@@ -283,8 +283,9 @@ const monthlySales = computed(() => {
   const salesByMonth = new Array(6).fill(0);
 
   props.checkouts.forEach((order) => {
+    if (!order?.cart?.updatedAt || !order?.cart?.total) return;
     if (order.paymentStatus === "completed") {
-      const orderDate = new Date(order.cart.updatedAt);
+      const orderDate = new Date(order.cart?.updatedAt);
       const month = orderDate.getMonth();
       const year = orderDate.getFullYear();
 
@@ -382,7 +383,7 @@ onMounted(() => {
 const calculateTotalRevenue = computed(() => {
   return props.checkouts
     .filter((checkout) => checkout.paymentStatus === "completed")
-    .reduce((total, checkout) => total + (checkout.cart.total || 0), 0)
+    .reduce((total, checkout) => total + (checkout.cart?.total || 0), 0)
     .toLocaleString();
 });
 

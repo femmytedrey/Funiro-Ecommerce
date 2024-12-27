@@ -75,6 +75,60 @@ export const useProductsStore = defineStore("products", {
       }
     },
 
+    async addProduct(data) {
+      this.loading = true;
+      try {
+        const response = await axios.post(
+          `${process.env.VUE_APP_BASE_URL}/products`,
+          data
+        );
+        console.log(response.data);
+        console.log("data is submitted successfully");
+        return response.data;
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async updateProduct(data) {
+      this.loading = true;
+      try {
+        if (!data._id) {
+          return console.log(data._id, "just the id");
+        }
+        const response = await axios.put(
+          `${process.env.VUE_APP_BASE_URL}/products/${data._id}`,
+          data
+        );
+        console.log(response.data);
+        console.log("data is updated successfully");
+        return response.data;
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async deleteProduct(productId){
+      this.loading = true;
+      try {
+        const response = await axios.delete(
+          `${process.env.VUE_APP_BASE_URL}/products/${productId}`
+        );
+        console.log(response.data);
+        console.log("data is deleted successfully");
+        return response.data;
+      } catch (error) {
+        
+      }
+      finally {
+        this.loading = false;
+      }
+    },
+
     nextPage(itemsPerPage) {
       if (this.currentPage < this.totalPages(itemsPerPage)) {
         this.currentPage++;
