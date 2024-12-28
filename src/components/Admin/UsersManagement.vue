@@ -118,10 +118,23 @@
               </td>
               <td class="px-6 py-4">
                 <div class="flex space-x-2">
-                  <button class="text-blue-600 hover:text-blue-800">
-                    Edit
+                  <button
+                    @click="toggleAdminRole(user.uid, index)"
+                    :disabled="isTogglingAdmin && clickedIndex === index"
+                    :class="[
+                      user.isAdmin
+                        ? 'text-white hover:bg-red-800 bg-red-600 p-2 min-w-36'
+                        : 'text-white hover:bg-green-800 bg-green-600 p-2 min-w-36',
+                      'whitespace-nowrap',
+                      clickedIndex === index && isTogglingAdmin ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer',
+                    ]"
+                  >
+                    {{ user.isAdmin ? "Revoke Admin" : "Make Admin" }}
                   </button>
-                  <button class="text-red-600 hover:text-red-800">
+                  <button
+                    @click="openModal(user.uid)"
+                    class="text-red-600 hover:text-red-800 underline-offset-1 underline"
+                  >
                     Delete
                   </button>
                 </div>
@@ -131,6 +144,68 @@
         </table>
       </div>
     </div>
+
+    <div
+      v-if="isTogglingAdmin || isDeletingUser"
+      class="flex w-full justify-center items-center space-x-2 py-4"
+    >
+      <div class="flex items-center space-x-2">
+        <svg
+          class="animate-spin h-8 w-8 text-primary"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-opacity="0.25"
+            class="text-gray-200"
+          ></circle>
+          <path
+            fill="none"
+            d="M4 12a8 8 0 1 1 8 8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+        <span class="text-xl text-gray-600 font-semibold">Please wait...</span>
+      </div>
+    </div>
+
+    <teleport to="body">
+      <div
+        v-if="isModalOpen"
+        class="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+          <h2 class="text-xl font-semibold mb-4">Confirm Delete</h2>
+          <p class="text-gray-700 mb-6">
+            Are you sure you want to delete this user? This action cannot be
+            undone.
+          </p>
+          <div class="flex justify-end space-x-4">
+            <button
+              @click="closeModal"
+              class="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
+            >
+              Cancel
+            </button>
+            <button
+              @click="deleteUser"
+              class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -141,6 +216,11 @@ import { formatDate } from "@/utils/formatters";
 
 const userStore = useAuthStore();
 const users = ref([]);
+const isModalOpen = ref(false);
+const selectedUserId = ref(null);
+const isTogglingAdmin = ref(false);
+const isDeletingUser = ref(false);
+const clickedIndex = ref("")
 
 const refreshUsersList = async () => {
   try {
@@ -151,11 +231,47 @@ const refreshUsersList = async () => {
   }
 };
 
+const openModal = (userId) => {
+  selectedUserId.value = userId;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  selectedUserId.value = null;
+  isModalOpen.value = false;
+};
+
+const toggleAdminRole = async (userId, index) => {
+    clickedIndex.value = index
+  isTogglingAdmin.value = true;
+  try {
+    await userStore.toggleAdminRole(userId);
+    await refreshUsersList();
+  } catch (error) {
+    console.error("Error toggling admin role:", error.message);
+  } finally {
+    isTogglingAdmin.value = false;
+  }
+};
+
+const deleteUser = async () => {
+  isDeletingUser.value = true;
+  if (!selectedUserId.value) return;
+  try {
+    await userStore.deleteUser(selectedUserId.value);
+    await refreshUsersList();
+  } catch (error) {
+    console.error("Error deleting user:", error.message);
+  } finally {
+    closeModal();
+    isDeletingUser.value = false;
+  }
+};
+
 onBeforeMount(async () => {
   await refreshUsersList();
 });
 
-// Function to get avatar initials
 const getAvatar = (firstName, lastName) => {
   return (
     (firstName?.[0] || "").toUpperCase() + (lastName?.[0] || "").toUpperCase()

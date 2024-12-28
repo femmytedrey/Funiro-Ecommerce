@@ -188,6 +188,59 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
+    async deleteUser(userId) {
+      this.loading = true;
+      try {
+        const user = auth.currentUser;
+
+        if (!user) {
+          throw new Error("Admin not authenticated");
+        }
+
+        const idToken = await user.getIdToken(true);
+        const response = await axios.delete(
+          `${process.env.VUE_APP_BASE_URL}/users/delete-user/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
+        );
+        //console.log(response.data?.message);
+      } catch (error) {
+        console.error("Error deleting user:", error.message);
+        this.handleFirebaseError(error.code || "general");
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async toggleAdminRole(userId) {
+      this.loading = true;
+
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          throw new Error("Admin not authenticated");
+        }
+        const idToken = await user.getIdToken(true);
+        const response = await axios.patch(
+          `${process.env.VUE_APP_BASE_URL}/users/toggle-admin`,
+          { uid: userId },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.error("Error toggling admin role:", error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
+
     async resetPassword(email) {
       this.clearErrors();
       this.loading = true;
