@@ -49,7 +49,7 @@
             orderDate.getMonth() -
             sixMonthsAgo.getMonth() +
             (orderDate.getFullYear() - sixMonthsAgo.getFullYear()) * 12;
-            console.log(monthIndex, "this is month index")
+            //console.log(monthIndex, "this is month index")
           if (monthIndex >= 0 && monthIndex < 6) {
             salesByMonth[monthIndex] += order.cart?.total || 0;
           }

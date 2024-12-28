@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { toRaw } from "vue";
 
 const AUTH_COOKIE_NAME = "isAuthenticated";
 const USER_DATA_COOKIE_NAME = "userData";
@@ -22,6 +23,7 @@ export const useAuthStore = defineStore("auth", {
     isAuthenticated: Cookies.get(AUTH_COOKIE_NAME) === "true",
     errors: {},
     loading: false,
+    users: [],
   }),
   actions: {
     async validateUserData(userData, options = { validateName: true }) {
@@ -146,7 +148,8 @@ export const useAuthStore = defineStore("auth", {
         };
 
         const idToken = await user.getIdToken(true);
-        //console.log(idToken)
+        this.token = idToken;
+        console.log(idToken);
 
         await this.updateUser(this.user, idToken);
 
@@ -190,7 +193,7 @@ export const useAuthStore = defineStore("auth", {
       this.loading = true;
       try {
         await sendPasswordResetEmail(auth, email);
-        console.log("Password reset link sent successfully")
+        console.log("Password reset link sent successfully");
       } catch (error) {
         this.handleFirebaseError(error.code);
       } finally {
@@ -198,6 +201,34 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
+    async getUsers() {
+      this.loading = true;
+      try {
+        const user = await auth.currentUser;
+        if (user) {
+          const idToken = await user.getIdToken(true);
+          const response = await axios.get(
+            `${process.env.VUE_APP_BASE_URL}/users`,
+            {
+              headers: {
+                Authorization: `Bearer ${idToken}`,
+              },
+            }
+          );
+
+          if (response.data) {
+            this.users = response.data;
+            return this.users;
+          } else {
+            console.log("No users found in the response.");
+          }
+        }
+      } catch (error) {
+        console.log("Error fetching users:", error.message);
+      } finally {
+        this.loading = false;
+      }
+    },
 
     async signInWithGoogle() {
       try {
@@ -313,7 +344,7 @@ export const useAuthStore = defineStore("auth", {
                 email: user.email,
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
-                isAdmin: response.data.isAdmin
+                isAdmin: response.data.isAdmin,
               };
               Cookies.set(USER_DATA_COOKIE_NAME, JSON.stringify(this.user), {
                 expires: 7,

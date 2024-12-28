@@ -7,12 +7,12 @@
       v-scroll-animate="'animate__fadeIn'"
       v-model:currentSection="currentSection"
       :isSidebarOpen="isSidebarOpen"
-      @close="isSidebarOpen = false"
+      @close="closeSidebar"
     />
     <div
-      class="min-h-screen absolute w-full bg-black/30 z-30 lg:hidden"
+      class="min-h-screen fixed w-full bg-black/30 z-30 lg:hidden"
       v-if="isSidebarOpen"
-      @click="isSidebarOpen = false"
+      @click="closeSidebar"
     ></div>
 
     <div class="flex-1 min-h-screen">
@@ -92,6 +92,12 @@ const route = useRoute();
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
+  document.body.style.overflow = "hidden";
+};
+
+const closeSidebar = () => {
+  isSidebarOpen.value = false;
+  document.body.style.overflow = "auto";
 };
 
 const setSectionFromURL = () => {

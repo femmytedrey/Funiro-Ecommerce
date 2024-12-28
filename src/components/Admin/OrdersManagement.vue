@@ -6,7 +6,7 @@
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center gap-y-3"
       >
-        <h2 class="text-xl font-bold text-gray-800">Recent Orders</h2>
+        <h2 class="text-2xl text-gray-900">Recent Orders</h2>
         <div class="flex items-center gap-3 w-full md:w-auto">
           <div class="relative flex-1 md:flex-initial">
             <input
