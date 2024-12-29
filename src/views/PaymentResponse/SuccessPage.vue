@@ -166,7 +166,6 @@ onMounted(async () => {
   const directOrderId = new URLSearchParams(window.location.search).get(
     "orderId"
   );
-  console.log(directOrderId, "is this one");
 
   if (sessionId) {
     const { success, checkoutId } = await checkoutStore.getCheckoutSession(
@@ -196,7 +195,7 @@ const populateOrderDetails = async (checkoutId) => {
 
   if (checkoutResponse.success && checkoutResponse.checkout) {
     const checkout = checkoutResponse.checkout;
-    console.log(checkout);
+    //console.log(checkout);
     orderId.value = checkout._id;
     orderAmount.value = checkout.cart.total;
     shippingAddress.value = `${checkout.deliveryDetails.shippingAddress}, ${checkout.deliveryDetails.city}, ${checkout.deliveryDetails.state}, ${checkout.deliveryDetails.country}`;

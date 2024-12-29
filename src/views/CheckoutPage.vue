@@ -242,11 +242,13 @@
       <!-- {{ selectedPaymentMethod }} -->
       <div class="mt-3 flex justify-center mx-16 lg:mx-9">
         <button
-          class="w-full p-3 px-8 sm:px-12 rounded-2xl border-black border hover:bg-primary hover:border-none hover:text-white transition-all duration-200 ease-in-out"
+          class="w-full h-12 px-8 sm:px-12 rounded-2xl border-black border hover:bg-primary hover:border-none hover:text-white transition-all duration-200 ease-in-out disabled:bg-primary/50 disabled:cursor-not-allowed disabled:text-white/50"
           type="submit"
           @click="handlePlaceOrder"
+          :disabled="checkout.isLoading"
         >
-          Place order
+          <span v-if="checkout.isLoading" class="w-6 h-6 border-1 border-t-4 border-white border-solid rounded-full animate-spin inline-block"></span>
+          <span v-else>Place order</span>
         </button>
       </div>
     </div>
@@ -336,10 +338,10 @@ const handlePlaceOrder = async () => {
         if (sessionResult.success) {
           window.location.href = sessionResult.url;
         }
-      } else {
+      } else if(selectedPaymentMethod.value === "cashOnDelivery") {
         // Handle cash on delivery
         router.push({
-          path: "/checkouts/success",
+          path: "/checkout/success",
           query: { orderId: result.checkout._id },
         });
       }

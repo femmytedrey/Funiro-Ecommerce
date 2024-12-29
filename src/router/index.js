@@ -6,21 +6,25 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("../views/HomePage.vue"),
+    meta: {title: 'Home'}
   },
   {
     path: "/shop",
     name: "Shop",
     component: () => import("../views/ShopPage.vue"),
+    meta: {title: 'Shop'}
   },
   {
     path: "/about",
     name: "About",
     component: () => import("../views/AboutPage.vue"),
+    meta: {title: 'About'}
   },
   {
     path: "/contact",
     name: "Contact",
     component: () => import("../views/ContactPage.vue"),
+    meta: {title: 'Contact'}
   },
   {
     path: "/admin",
@@ -29,6 +33,7 @@ const routes = [
     meta: {
       requireAuth: true,
       requireAdmin: true,
+      title: 'Admin'
     }
   },
   {
@@ -38,6 +43,7 @@ const routes = [
     meta: {
       requireAuth: true,
       requireAdmin: true,
+      title: 'Admin Demo'
     },
   },
   {
@@ -46,6 +52,7 @@ const routes = [
     component: () => import("../views/auth/LoginPage.vue"),
     meta: {
       requireAuth: false,
+      title: 'Login'
     },
   },
   {
@@ -70,6 +77,7 @@ const routes = [
     component: () => import("../views/DashboardPage.vue"),
     meta: {
       requireAuth: true,
+      title: 'Dashboard'
     },
   },
   {
@@ -78,12 +86,16 @@ const routes = [
     component: () => import("../utils/DashboardDemo.vue"),
     meta: {
       requireAuth: true,
+      title: 'Dashboard Demo'
     },
   },
   {
     path: "/product/:id",
     name: "ProductDetail",
     component: () => import("../components/HomeComponents/ProductDetail.vue"),
+    meta: {
+      title: 'Product Detail'
+    }
   },
   {
     path: "/cart",
@@ -91,6 +103,7 @@ const routes = [
     component: () => import("../views/CartPage.vue"),
     meta: {
       requireAuth: true,
+      title: 'Cart'
     },
   },
   {
@@ -99,6 +112,7 @@ const routes = [
     component: () => import("../views/CheckoutPage.vue"),
     meta: {
       requireAuth: true,
+      title: 'Checkout'
     },
   },
   {
@@ -107,6 +121,7 @@ const routes = [
     component: () => import("../views/PaymentResponse/SuccessPage.vue"),
     meta: {
       requireAuth: true,
+      title: 'Success'
     },
   },
   {
@@ -115,22 +130,32 @@ const routes = [
     component: () => import("../views/PaymentResponse/FailedPage.vue"),
     meta: {
       requireAuth: true,
+      title: 'Fail'
     },
   },
   {
     path: "/orders",
     name: "Orders",
     component: () => import("../views/Orders/OrdersPage.vue"),
+    meta: {
+      requireAuth: true,
+      title: 'Orders'
+    }
   },
   {
     path: "/orders/:id",
     name: "OrderDetails",
     component: () => import("../views/Orders/OrderDetails.vue"),
+    meta: {
+      requireAuth: true,
+      title: 'Order Details'
+    }
   },
   {
     path: "/search-results",
     name: "SearchResults",
     component: () => import("../views/SearchResults.vue"),
+    
   },
 ];
 

@@ -147,6 +147,12 @@ export const useProductsStore = defineStore("products", {
       this.currentPage = page;
       sessionStorage.setItem("currentPage", page);
     },
+
+    async initializeProductStore() {
+      if (this.products.length === 0) {
+        await this.fetchProducts();
+      }
+    },
   },
   getters: {
     displayProducts: (state) => (limit) => {
