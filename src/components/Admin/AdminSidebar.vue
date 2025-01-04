@@ -5,14 +5,13 @@
       isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
     ]"
   >
-  
     <div
       class="h-16 px-3 lg:px-4 border-b flex justify-between items-center cursor-pointer"
     >
-      <div class="flex gap-x-2 items-center">
+      <router-link :to="{ name: 'Home' }" class="flex gap-x-2 items-center">
         <img :src="logo" alt="logo" class="w-8" />
         <h1 class="text-xl font-bold">Funiro Admin</h1>
-      </div>
+      </router-link>
       <button @click="closeSidebar" class="lg:hidden p-2">
         <i class="fas fa-times"></i>
       </button>
@@ -81,7 +80,7 @@ nav::-webkit-scrollbar-track {
 }
 
 nav::-webkit-scrollbar-thumb {
-  background: #e5e7eb;  /* Matches Tailwind's bg-gray-200 */
+  background: #e5e7eb; /* Matches Tailwind's bg-gray-200 */
   border-radius: 4px;
 }
 
